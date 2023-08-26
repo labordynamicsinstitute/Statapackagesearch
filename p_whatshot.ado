@@ -1,7 +1,6 @@
 program p_whatshot
 *! version 1.0.15  23jan2022
     version 14
-    
     syntax , vars(string) [  debug ]
 
         local p_vars_hot `vars'
