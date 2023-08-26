@@ -9,11 +9,12 @@ program p_whatshot
     	local whatshotsrc "http://repec.org/docs/sschotPPPcur.dta"
 
     	use package author hits_cur using "`whatshotsrc'"
+		keep if _n <= 1000
 		// legacy consistency
     	gen packagename = lower(package)
 		rename author authors
 		rename hits_cur hits
-		sort hits
+		gsort  -hits
 		gen rank = _n
 
 		keep packagename `p_vars_hot'
