@@ -9,7 +9,7 @@ program p_whatshot
     	local whatshotsrc "http://repec.org/docs/sschotPPPcur.dta"
 
     	use package author hits_cur using "`whatshotsrc'"
-		keep if _n <= 1000
+		keep if _n <= 10000
 		// legacy consistency
     	gen packagename = lower(package)
 		rename author authors
