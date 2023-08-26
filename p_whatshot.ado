@@ -10,9 +10,10 @@ program p_whatshot
 
     	use package author hits_cur using "`whatshotsrc'"
 		// legacy consistency
-    	rename package packagename
+    	gen packagename = lower(package)
 		rename author authors
 		rename hits_cur hits
+		sort hits
 		gen rank = _n
 
 		keep packagename `p_vars_hot'
