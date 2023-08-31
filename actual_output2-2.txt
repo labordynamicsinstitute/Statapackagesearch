@@ -1,8 +1,8 @@
-
      +-----------
      |   match   
      |-----------
   1. | reghdfe   
      +-----------
+Found 1 rows.
 
 . exit, clear STA
