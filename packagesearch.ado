@@ -76,12 +76,15 @@ n di "Required packages: `ssc_packages'"
 
 foreach pkg in `ssc_packages' {
     n di "Installing `pkg'"
-    qui cap ssc install `pkg', replace	
-	** If error- print need to install dependencies
-	if _rc==603 {
-		n di as err "Packages `ssc_packages' are required, but could not be successfully installed. Please install before proceeding. "
-		exit
-	}
+    cap which `pkg'
+    if (_rc==111) {
+	    cap ssc install `pkg', replace
+		** If error- print need to install dependencies
+		if _rc==603 {
+			n di as err "Packages `ssc_packages' are required, but could not be successfully installed. Please install before proceeding. "
+			exit
+		}
+    }
 }
 
 	
@@ -100,7 +103,7 @@ tempfile packagelist
 *import and clean ancillary .dta if econstats is selected
 n di "==========================================================="
 if ("`domain'" != "") {
-    n di "Using domain-specific stats from `domain'"
+    di as text "Using domain-specific stats from `domain'"
 	qui {
 		use `domainstats'
 		save `packagelist'
@@ -109,7 +112,7 @@ if ("`domain'" != "") {
 }
 else {
 
-    n di "Step 2: Collect (and clean) list of all packages hosted at SSC"
+    di as text "Step 2: Collect (and clean) list of all packages hosted at SSC"
 	p_whatshot, vars(`p_vars_hot')
 
 } // end else domain
@@ -129,7 +132,7 @@ gen word = packagename
 label var rank "Package popularity (rank out of total # of packages)"
 
 // Develop ranking system to help determine likelihood of false positives
-sum hits, detail
+qui sum hits, detail
 
 * include prob of false positive if # of monthly hits for the package is below 90th percentile
 gen probFalsePos = rank/_N if _n>`r(p90)' 
@@ -146,7 +149,7 @@ qui drop p_underscore
 	
 sort rank
 qui save "`packagelist'", replace
-di "Package list generated successfully (`packagelist')"
+di as text "Package list generated successfully (`packagelist')"
 li in 1/10
 
 
@@ -154,7 +157,7 @@ li in 1/10
 * Step 3: Parsing	      *
 ***************************
 n di "==========================================================="
-di as input "Step 3 : Parse all .do files in specified directory (split them into words)"
+di as text "Step 3 : Parse all .do files in specified directory (split them into words)"
 
 qui {
 *Parse each .do file in a directory, then append the parsed files
@@ -196,27 +199,27 @@ qui {
 	    /* clean - this is handled by the stopword file as well */
     
 	    * split on common delimiters- txttool can't handle long strings
-	    replace txtstring = subinstr(txtstring,"\", " ",.)
-	    replace txtstring = subinstr(txtstring,"{", " ",.)
-	    replace txtstring = subinstr(txtstring,"}", " ",.)
-	    replace txtstring = subinstr(txtstring,"="," ",.)
-	    replace txtstring = subinstr(txtstring, "$"," ",.)
-	    replace txtstring = subinstr(txtstring, "/"," ",.)
-	    replace txtstring = subinstr(txtstring, "_","",.)
-	    replace txtstring = subinstr(txtstring, "*"," ",.)
-	    replace txtstring = subinstr(txtstring, "-"," ",.)
-	    replace txtstring = subinstr(txtstring, ","," ",.)
-	    replace txtstring = subinstr(txtstring, "+"," ",.)
-	    replace txtstring = subinstr(txtstring, "("," ",.)
-	    replace txtstring = subinstr(txtstring, ")"," ",.)
-	    replace txtstring = subinstr(txtstring, "#"," ",.)
-	    replace txtstring = subinstr(txtstring, "~"," ",.)
-	    replace txtstring = subinstr(txtstring, "."," ",.)
-	    replace txtstring = subinstr(txtstring, "<"," ",.)
-	    replace txtstring = subinstr(txtstring, ">"," ",.)
+	    qui replace txtstring = subinstr(txtstring,"\", " ",.)
+	    qui replace txtstring = subinstr(txtstring,"{", " ",.)
+	    qui replace txtstring = subinstr(txtstring,"}", " ",.)
+	    qui replace txtstring = subinstr(txtstring,"="," ",.)
+	    qui replace txtstring = subinstr(txtstring, "$"," ",.)
+	    qui replace txtstring = subinstr(txtstring, "/"," ",.)
+	    qui replace txtstring = subinstr(txtstring, "_","",.)
+	    qui replace txtstring = subinstr(txtstring, "*"," ",.)
+	    qui replace txtstring = subinstr(txtstring, "-"," ",.)
+	    qui replace txtstring = subinstr(txtstring, ","," ",.)
+	    qui replace txtstring = subinstr(txtstring, "+"," ",.)
+	    qui replace txtstring = subinstr(txtstring, "("," ",.)
+	    qui replace txtstring = subinstr(txtstring, ")"," ",.)
+	    qui replace txtstring = subinstr(txtstring, "#"," ",.)
+	    qui replace txtstring = subinstr(txtstring, "~"," ",.)
+	    qui replace txtstring = subinstr(txtstring, "."," ",.)
+	    qui replace txtstring = subinstr(txtstring, "<"," ",.)
+	    qui replace txtstring = subinstr(txtstring, ">"," ",.)
 	    
 	    *omit the end of lines of code (usually don't contain packages anyways)
-	    replace txtstring = ustrleft(txtstring, 72)
+	    qui replace txtstring = ustrleft(txtstring, 72)
 	    
 	    
 	    * perform the txttool analysis- removes stopwords and duplicates
@@ -275,12 +278,12 @@ global counter 0
 foreach var of varlist w_* {
 	/* add a row for the next variable */
 	global counter = $counter +1
-	set obs $counter
+	qui set obs $counter
 	/* capture word and its count */
     
 	*capture the name of the variable and its frequency and do this for every variable, then drop all variables (collapses the unique variables)
-	replace word = "`var'" if _n == $counter
-	replace count = `var'  if _n == $counter
+	qui replace word = "`var'" if _n == $counter
+	qui replace count = `var'  if _n == $counter
 }
 replace word = subinstr(word,"w_","",.)
 drop w_*
