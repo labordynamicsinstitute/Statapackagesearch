@@ -14,6 +14,11 @@ program p_whatshot
     	gen packagename = lower(package)
 		rename author authors
 		rename hits_cur hits
+		// sort out duplicates. We keep the higher count
+		gsort packagename -hits
+		n di "Dropping duplicates pulled from SSC"
+		duplicates drop packagename hits, force
+		// rank by hits
 		gsort  -hits
 		gen rank = _n
 
