@@ -1,5 +1,5 @@
 program p_whatshot
-*! version 1.0.16  26aug2023
+*! version 1.0.20  09nov2023
     version 14
     syntax , vars(string) [  debug ]
 
