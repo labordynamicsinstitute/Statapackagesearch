@@ -113,14 +113,7 @@ if ("`domain'" != "") {
 else {
 
     di as text "Step 2: Collect (and clean) list of all packages hosted at SSC"
-	*p_whatshot, vars(`p_vars_hot')
-	use http://repec.org/docs/sschotPPPcur, clear
-	qui bys package: keep if _n==1
-	drop author
-	rename package packagename
-	rename hits_cur hits
-	sort hits
-	gen rank = _n
+	p_whatshot, vars(`p_vars_hot')
 
 } // end else domain
 
