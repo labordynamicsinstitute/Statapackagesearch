@@ -49,6 +49,9 @@ local commonFPs "white missing index dash title cluster pre bys"
 local stopwords      "`rootdir'/p_stopwords.txt"
 local signalcommands "`rootdir'/p_signalcommands.txt"
 local domainstats    "`rootdir'/p_stats_`domain'.dta"
+local pkgwords       "`rootdir'/p_keyword_pkg_xwalk.dta"
+local shortwords     3
+local debug          0
 
 n di "==========================================================="
 n di " Step 1 (preliminaries): Installing necessary dependencies:"
@@ -98,7 +101,15 @@ di "   -> Required packages installed"
 ********************************************************
 
 local p_vars_hot "rank hits"
-tempfile packagelist
+if `debug' > 0 { 
+	di as err "Debugging mode is on"
+	di "p_vars_hot = `p_vars_hot'"
+	local packagelist "packagelist.dta"
+} 
+else {
+	tempfile packagelist
+}
+
 
 *import and clean ancillary .dta if econstats is selected
 n di "==========================================================="
@@ -145,12 +156,20 @@ sort word
 *remove underscores from applicable packages
 strip packagename, of("_") gen(p_underscore)
 qui replace packagename = p_underscore
-qui drop p_underscore
+qui drop p_underscore rank
 	
+gsort packagename -hits
+n di "Dropping duplicates pulled from SSC"
+duplicates drop packagename, force
+// rank by hits
+gsort  -hits
+gen rank = _n
 sort rank
 qui save "`packagelist'", replace
-di as text "Package list generated successfully (`packagelist')"
-li in 1/10
+//if `debug' > 1 { 
+	di as text "Package list generated successfully (`packagelist')"
+	li in 1/10
+//}
 
 
 ***************************
@@ -225,7 +244,7 @@ qui {
 	    * perform the txttool analysis- removes stopwords and duplicates
 	    
 	    cap n txttool txtstring, sub("`rootdir'/p_signalcommands.txt") stop("`rootdir'/p_stopwords.txt") gen(bagged_words)  bagwords prefix(w_)
-	    	if _rc di as input "Error: file `v' contains long string unable to be processed. It has been omitted from the scanning process."
+	    	if _rc di as text "Error: file `v' contains long string unable to be processed. It has been omitted from the scanning process."
 	    
 	    
 	    * saves the results as .dta file (one for each .do file in the folder)
@@ -263,15 +282,16 @@ qui {
  
  if _rc ==0 {
 
- di as input "Step 4: Match parsed files to package list and show candidate packages"
+ di as text "==========================================================="
+ di as text "Step 4: Match parsed files to package list and show candidate packages"
 
  
 *Collapses unique words into 1 observation
 collapse (sum) w_* 
 
 * create a new var and count to capture frequency
-gen word = ""
-gen count = 0
+qui gen word = ""
+qui gen count = 0
 
 *expand dataset again
 global counter 0
@@ -292,66 +312,83 @@ sort word
 
 }
 else {
- 	di as input "No Stata .do files found in this directory. Please specify another location."
+ 	di as text "No Stata .do files found in this directory. Please specify another location."
 	exit
 }
 
 // Merge/match
-
-sort word
-merge 1:1 word using `packagelist'
-
-
-** Procedure for identifying if no matched packages are found
-qui {
-return list
-
-*calculate and store # of obs that weren't matched
-gen success2= r(N)
-egen success1 = count(_merge ==3), by(_merge) 
-replace success1 = success1 + success2
-
-* calc total number of obs and subtract
-egen success = count("matched (3)") 
-replace success = success - success1
+rename word keyword
+sort keyword
+if `debug' == 1 { 
+	desc
 }
+// Merge on word-to-package mapping
+
+qui merge 1:1 keyword using `pkgwords', keep(match) nogen
+// Drop words that are too short
+di as text "Dropping words that are too short (<`shortwords')"
+drop if length(keyword)<`shortwords'
+if `debug' == 1 { 
+	desc
+}
+// Merge on package list
+di as text "Merging on package stats"
+rename package packagename
+sort packagename
+if `debug' == 1 { 
+	di "`packagelist'" 
+	preserve
+	use `packagelist', clear
+	desc
+	duplicates report packagename
+	duplicates list packagename 
+	restore
+}
+// desc using `packagelist'
+qui merge 1:1 packagename using `packagelist', keep(match) nogen
+qui sum rank
+local success = `r(N)'
+di as text "Number of matched packages: `success'"
+
+
  // If no matched packages found, output message and exit
-if success == 0 {
-	di as input "No matched packages found"
+if `success' == 0 {
+	di as text "No matched packages found"
 	
 	qui drop success success1 success2
 	exit
 }
 
 // Otherwise keep going
-di as input "Candidate packages listed below:"
 qui{
-	gen match = word if _merge==3
+	gen match = packagename 
 	label var match "Candidate package found"
 	keep if match !=""
 }
-di as input "Note: Underscores in package names are omitted (if applicable)"
+di as text "Note: Underscores in package names are omitted (if applicable)"
 if ("`nodropfalsepos'"== "nodropfalsepos") {
 	* rm common FPs according to us
 	di as err "Keeping common false positives (`commonFPs')"
 }
 else {
-	di as input "Dropping common false positives (`commonFPs')"
+	di as text "Dropping common false positives (`commonFPs')"
 	foreach word in `commonFPs' {
 		qui drop if match == "`word'" 
 		*replace success = success - *number of observations deleted in the for loop above*
 	}
 
-	if success == 0 {
-		di as input "All matched packages found were false positives"
+	if `success' == 0 {
+		di as text "All matched packages found were false positives"
 		exit
 	}
 }
 
-qui drop success success1 success2
 * the list can be long, so we rely on gsort for fast sorting
+di as text "==========================================================="
+di as text "Candidate packages listed below:"
+
 gsort rank match
-list match rank probFalsePos, ab(25) 
+list match rank probFalsePos keyword, ab(25) 
 	
 * if list is empty (only packages found were common FPs), di error message
 
@@ -371,11 +408,12 @@ restore
 preserve
 
 qui sum rank
-dis "Found `r(N)' rows."
+
+// dis "Found `r(N)' rows."
 
 if `r(N)' > 0 {
 	if ("`excelsave'"== "excelsave" | "`csvsave'" == "csvsave" ) {
-		di as input "Optional Step 5: Export results of the match (candidate packages)"
+		di as text "Optional Step 5: Export results of the match (candidate packages)"
 
 		global reportfile "`codedir'/candidatepackages.xlsx"
 		global reportcsv  "`codedir'/candidatepackages.csv"
@@ -410,7 +448,7 @@ if `r(N)' > 0 {
 		
 	qui{
 		if ("`installfounds'"== "installfounds") {
-			n di as input "Installing packages found during the scanning process."
+			n di as text "Installing packages found during the scanning process."
 			* Install all found packages (including FPs)
 			levelsof match, clean local(foundpackages)
 			if !missing("foundpackages") {
