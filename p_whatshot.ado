@@ -17,10 +17,11 @@ program p_whatshot
 		// sort out duplicates. We keep the higher count
 		gsort packagename -hits
 		n di "Dropping duplicates pulled from SSC"
-		duplicates drop packagename hits, force
+		duplicates drop packagename, force
 		// rank by hits
 		gsort  -hits
 		gen rank = _n
 
 		keep packagename `p_vars_hot'
+		duplicates report packagename
 end

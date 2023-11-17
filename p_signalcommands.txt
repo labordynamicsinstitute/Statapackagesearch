@@ -3,12 +3,6 @@ eststo	estout
 estadd	estout
 estpost	estout
 esttab	estout
-fegen	ftools
-fcollapse	ftools
-fmerge	ftools
-fisid	ftools
-flevelsof	ftools
-fsort	ftools
 gcollapse	gtools
 greshape	gtools
 gegen	gtools
