@@ -326,13 +326,13 @@ if `debug' == 1 {
 
 qui merge 1:1 keyword using `pkgwords', keep(match) nogen
 // Drop words that are too short
-di as text "Dropping words that are too short (<`shortwords')"
+di as text "::: Dropping words that are too short (<`shortwords')"
 drop if length(keyword)<`shortwords'
 if `debug' == 1 { 
 	desc
 }
 // Merge on package list
-di as text "Merging on package stats"
+di as text "::: Merging on package stats"
 rename package packagename
 sort packagename
 if `debug' == 1 { 
@@ -345,10 +345,10 @@ if `debug' == 1 {
 	restore
 }
 // desc using `packagelist'
-qui merge 1:1 packagename using `packagelist', keep(match) nogen
+qui merge m:1 packagename using `packagelist', keep(match) nogen
 qui sum rank
 local success = `r(N)'
-di as text "Number of matched packages: `success'"
+di as text "::: Number of matched packages: `success'"
 
 
  // If no matched packages found, output message and exit
