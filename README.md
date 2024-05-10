@@ -1,6 +1,4 @@
-[![Test CI Stata](https://github.com/AEADataEditor/Statapackagesearch/actions/workflows/test.yml/badge.svg)](https://github.com/AEADataEditor/Statapackagesearch/actions/workflows/test.yml)
-[![Run](https://github.com/AEADataEditor/Statapackagesearch/actions/workflows/test.yml/badge.svg?event=workflow_run)](https://github.com/AEADataEditor/Statapackagesearch/actions/workflows/test.yml)
-
+[![Test CI Stata](https://github.com/labordynamicsinstitute/Statapackagesearch/actions/workflows/test.yml/badge.svg)](https://github.com/labordynamicsinstitute/Statapackagesearch/actions/workflows/test.yml)
 
 # `Packagesearch`: module to scan Stata .do files and identify SSC packages used by the code
 
@@ -8,7 +6,7 @@
 To install, type the following command into Stata. 
 
 ```
-net install packagesearch, from("https://aeadataeditor.github.io/Statapackagesearch/")
+net install packagesearch, from("https://labordynamicsinstitute.github.io/Statapackagesearch/")
 ```
 
 ## Syntax: (also available in the help file)
@@ -77,7 +75,7 @@ Finally, it matches the individual words against the list of common Stata packag
 The Github repository has a few files to test the package. To run, you can do the following:
 
 ```{bash}
-GITURL=https://github.com/AEADataEditor/Statapackagesearch/
+GITURL=https://github.com/labordynamicsinstitute/Statapackagesearch/
 git clone $GITURL
 cd Statapackagesearch
 ```
