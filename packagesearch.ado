@@ -1,7 +1,7 @@
 program packagesearch 
 *! version 1.0.20  09nov2023
     version 14
-    syntax , codedir(string) [  FILESave EXCELsave CSVsave NODROPfalsepos INSTALLfounds domain(string)]
+    syntax , codedir(string) [  FILESave EXCELsave CSVsave NODROPfalsepos INSTALLfounds domain(string) details]
 	
 // Options
 /*
@@ -47,11 +47,10 @@ local commonFPs "white missing index dash title cluster pre bys"
 
 // Additional files
 local stopwords      "`rootdir'/p_stopwords.txt"
-local signalcommands "`rootdir'/p_signalcommands.txt"
 local domainstats    "`rootdir'/p_stats_`domain'.dta"
 local pkgwords       "`rootdir'/p_keyword_pkg_xwalk.dta"
 local shortwords     3
-local debug          0
+local debug          1
 
 n di "==========================================================="
 n di " Step 1 (preliminaries): Installing necessary dependencies:"
@@ -243,7 +242,7 @@ qui {
 	    
 	    * perform the txttool analysis- removes stopwords and duplicates
 	    
-	    cap n txttool txtstring, sub("`rootdir'/p_signalcommands.txt") stop("`rootdir'/p_stopwords.txt") gen(bagged_words)  bagwords prefix(w_)
+	    cap n txttool txtstring,  stop("`rootdir'/p_stopwords.txt") gen(bagged_words)  bagwords prefix(w_)
 	    	if _rc di as text "Error: file `v' contains long string unable to be processed. It has been omitted from the scanning process."
 	    
 	    
@@ -264,9 +263,7 @@ qui {
  *List all generated .dta files and append them to prepare for the match
  
  qui{
- * == old method == 
- * fs "parsed_data*.dta"
- * cap append using `r(files)'
+   * == append all files ==
    tempfile completeparsed
    local firstfile ""
    foreach file in `parsedfiles' {
@@ -282,34 +279,32 @@ qui {
  
  if _rc ==0 {
 
- di as text "==========================================================="
- di as text "Step 4: Match parsed files to package list and show candidate packages"
+	di as text "==========================================================="
+	di as text "Step 4: Match parsed files to package list and show candidate packages"
 
- 
-*Collapses unique words into 1 observation
-collapse (sum) w_* 
+	*Collapses unique words into 1 observation
+	collapse (sum) w_* 
 
-* create a new var and count to capture frequency
-qui gen word = ""
-qui gen count = 0
+	* create a new var and count to capture frequency
+	qui gen word = ""
+	qui gen count = 0
 
-*expand dataset again
-global counter 0
-foreach var of varlist w_* {
-	/* add a row for the next variable */
-	global counter = $counter +1
-	qui set obs $counter
-	/* capture word and its count */
-    
-	*capture the name of the variable and its frequency and do this for every variable, then drop all variables (collapses the unique variables)
-	qui replace word = "`var'" if _n == $counter
-	qui replace count = `var'  if _n == $counter
-}
-replace word = subinstr(word,"w_","",.)
-drop w_*
+	*expand dataset again
+	global counter 0
+	foreach var of varlist w_* {
+		/* add a row for the next variable */
+		global counter = $counter +1
+		qui set obs $counter
+		/* capture word and its count */
+		
+		*capture the name of the variable and its frequency and do this for every variable, then drop all variables (collapses the unique variables)
+		qui replace word = "`var'" if _n == $counter
+		qui replace count = `var'  if _n == $counter
+	}
+	replace word = subinstr(word,"w_","",.)
+	drop w_*
 
-sort word
-
+	sort word
 }
 else {
  	di as text "No Stata .do files found in this directory. Please specify another location."
@@ -321,6 +316,7 @@ rename word keyword
 sort keyword
 if `debug' == 1 { 
 	desc
+	li
 }
 // Merge on word-to-package mapping
 
@@ -383,10 +379,21 @@ else {
 	}
 }
 
-* the list can be long, so we rely on gsort for fast sorting
 di as text "==========================================================="
-di as text "Candidate packages listed below:"
 
+* If we want details, we keep the list, else we unduplicate 
+
+if ("`details'" == "details") {
+    di as text "Candidate packages listed below, with detailed keywords:"
+}
+else {
+	di as text "Candidate packages listed below, with count of distinct keywords:"
+	qui drop keyword
+	qui bysort match rank probFalsePos: gen keyword = _N
+	qui duplicates drop match rank probFalsePos keyword, force
+}
+
+* the list can be long, so we rely on gsort for fast sorting
 gsort rank match
 list match rank probFalsePos keyword, ab(25) 
 	
