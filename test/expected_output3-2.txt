@@ -1,0 +1,17 @@
+     +--------------------------------------------+
+     |    match   rank   probFalsePos     keyword |
+     |--------------------------------------------|
+  1. |   estout      7              0      eststo |
+  2. |   estout      7              0      estout |
+  3. |  reghdfe      9              0     reghdfe |
+  4. |   ftools     11              0   fcollapse |
+  5. | egenmore     23              0        rany |
+     |--------------------------------------------|
+  6. | egenmore     23              0       nmiss |
+     +--------------------------------------------+
+
+. di "====Test 3-2: END"
+====Test 3-2: END
+
+. 
+. exit, clear STATA

@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+#============================
     - name: Prepare
       run: "chmod a+rx test/*sh"
     - name: Run Stata Test 1
@@ -27,6 +28,7 @@ jobs:
         changedir: no
     - name: Verify output Test 1
       run: "test/verify_test1.sh"
+#============================
     - name: Run Stata Test 2
       id: ci-stata2
       uses: labordynamicsinstitute/continuous-integration-stata@v0.2
@@ -41,16 +43,31 @@ jobs:
         changedir: no
     - name: Verify output Test 2
       run: "test/verify_test2.sh"
-    - name: Add test results to git to be pushed
-      run: "git add -f *.log *.txt"
-    - name: Deploy
-      id: deploy
-      uses: peaceiris/actions-gh-pages@v3.8.0
+#============================
+    - name: Run Stata Test 3
+      id: ci-stata3
+      uses: labordynamicsinstitute/continuous-integration-stata@v0.2
       with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          user_name: 'Github Action Bot'
-          user_email: lars.vilhuber@cornell.edu
-          publish_branch: results
-          keep_files: true
-          commit_message: ${{ github.event.head_commit.message }}
+        program: test/test3.do
+        version: ${{ secrets.STATA_VERSION }}
+        serial-number: ${{ secrets.STATA_SERIALNUMBER }}
+        code: ${{ secrets.STATA_CODE }}
+        authorization: ${{ secrets.STATA_AUTH }}
+        name: ${{ secrets.STATA_NAME }}
+        institution: ${{ secrets.STATA_INSTITUTION }}
+        changedir: no
+    - name: Verify output Test 3
+      run: "test/verify_test3.sh"
+    # - name: Add test results to git to be pushed
+      # run: "git add -f *.log *.txt"
+    # - name: Deploy
+      # id: deploy
+      # uses: peaceiris/actions-gh-pages@v3.8.0
+      # with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: .
+      #     user_name: 'Github Action Bot'
+      #     user_email: lars.vilhuber@cornell.edu
+      #     publish_branch: results
+      #     keep_files: true
+      #     commit_message: ${{ github.event.head_commit.message }}

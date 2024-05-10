@@ -1,5 +1,5 @@
 program packagesearch 
-*! version 1.0.29  10mai2024
+*! version 1.0.30  10mai2024
     version 14
     syntax , codedir(string) [  FILESave EXCELsave CSVsave NODROPfalsepos INSTALLfounds domain(string) details]
 	
@@ -18,6 +18,7 @@ installfounds = install missing package found by the match
 
 domain = compares input files to a list of packages from domain-specific research papers (currently only "econ" is supported)
 
+details = will print out the keywords that triggered the package list. Packages will no longer be unique, though.
 */
 
 
@@ -50,7 +51,7 @@ local stopwords      "`rootdir'/p_stopwords.txt"
 local domainstats    "`rootdir'/p_stats_`domain'.dta"
 local pkgwords       "`rootdir'/p_keyword_pkg_xwalk.dta"
 local shortwords     3
-local debug          1
+local debug          0
 
 n di "==========================================================="
 n di " Step 1 (preliminaries): Installing necessary dependencies:"

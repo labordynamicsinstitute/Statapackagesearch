@@ -15,6 +15,7 @@
 {p 8 16 2}
 {cmd:packagesearch} {cmd:,} 
 {cmd:codedir({it:directorytoscan})}[
+{cmd:details}
 {cmd:domain({it:domain})}
 {cmdab:files:ave}
 {cmdab:excel:save}
@@ -25,6 +26,8 @@
 {title:Options}
 
 {phang}{opt codedir(directorytoscan)} is required. It specifies the directory that contains the .do files to be scanned for SSC packages.
+
+{phang}{opt details} will preserve the list of keywords that triggered the package match. By default, only the count of such keywords is output.
 
 {phang}{opt domain(domain)} optionally specifies a domain from which to take statistics to help identify likely packages (by default, {it:ssc hot} is used). Only available domain right now is {it:econ}.
 
