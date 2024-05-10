@@ -1,7 +1,7 @@
 program packagesearch 
 *! version 1.0.20  09nov2023
     version 14
-    syntax , codedir(string) [  FILESave EXCELsave CSVsave NODROPfalsepos INSTALLfounds domain(string)]
+    syntax , codedir(string) [  FILESave EXCELsave CSVsave NODROPfalsepos INSTALLfounds domain(string) details]
 	
 // Options
 /*
@@ -47,7 +47,6 @@ local commonFPs "white missing index dash title cluster pre bys"
 
 // Additional files
 local stopwords      "`rootdir'/p_stopwords.txt"
-local signalcommands "`rootdir'/p_signalcommands.txt"
 local domainstats    "`rootdir'/p_stats_`domain'.dta"
 local pkgwords       "`rootdir'/p_keyword_pkg_xwalk.dta"
 local shortwords     3
@@ -380,10 +379,21 @@ else {
 	}
 }
 
-* the list can be long, so we rely on gsort for fast sorting
 di as text "==========================================================="
-di as text "Candidate packages listed below:"
 
+* If we want details, we keep the list, else we unduplicate 
+
+if ("`details'" == "details") {
+    di as text "Candidate packages listed below, with detailed keywords:"
+}
+else {
+	di as text "Candidate packages listed below, with count of distinct keywords:"
+	qui drop keyword
+	qui bysort match rank probFalsePos: gen keyword = _N
+	qui duplicates drop match rank probFalsePos keyword, force
+}
+
+* the list can be long, so we rely on gsort for fast sorting
 gsort rank match
 list match rank probFalsePos keyword, ab(25) 
 	
