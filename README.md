@@ -30,7 +30,7 @@ net install packagesearch, from("https://labordynamicsinstitute.github.io/Statap
       
       Syntax
       
-              packagesearch , codedir(directorytoscan)[ domain(domain) filesave
+              packagesearch , codedir(directorytoscan)[ details domain(domain) filesave
                       excelsave nodropfalsepos installfounds]
       
       
@@ -38,7 +38,9 @@ net install packagesearch, from("https://labordynamicsinstitute.github.io/Statap
       
           codedir(directorytoscan) is required. It specifies the directory that
               contains the .do files to be scanned for SSC packages.
-      
+          details will preserve the list of keywords that triggered the package match. 
+              By default, only the count of such keywords is output.
+
           domain(domain) optionally specifies a domain from which to take
               statistics to help identify likely packages (by default, ssc hot is
               used). Only available domain right now is econ.
