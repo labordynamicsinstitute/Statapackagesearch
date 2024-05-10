@@ -5,5 +5,5 @@ w_axthisisalongwordxgoingxupxtoxh invalid name
                wordbag():     -  function returned error
             mm_txttool():     -  function returned error
                  <istmt>:     -  function returned error
-Error: file data/test2/longwords_nounderscores.do contains long string unable t
-> o be processed. It has been omitted from the scanning process.
+===========================================================
+Step 4: Match parsed files to package list and show candidate packages
