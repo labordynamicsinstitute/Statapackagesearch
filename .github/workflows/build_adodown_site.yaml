@@ -37,12 +37,12 @@ jobs:
         run: |
           sudo apt-get install -y make libcurl4-openssl-dev libssl-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjpeg-dev libpng-dev libtiff-dev libicu-dev pandoc libxml2-dev libgit2-dev libssh2-1-dev zlib1g-dev git
 
-      - name: Install remotes
-        run: install.packages("remotes")
+      - name: Install pak
+        run: install.packages("pak")
         shell: Rscript {0}
 
       - name: Install adodownr
-        run: remotes::install_github("lsms-worldbank/adodownr")
+        run: pak::pak("lsms-worldbank/adodownr")
         shell: Rscript {0}
 
       - name: Install here
