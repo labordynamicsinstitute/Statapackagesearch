@@ -72,8 +72,8 @@ jobs:
             testing_content <- readme[testing_start[1]:testing_end]
             dir.create("src/vignettes", recursive = TRUE, showWarnings = FALSE)
             yaml_header <- c("---", "execute:", "  eval: false", "---", "")
-            writeLines(c(yaml_header, testing_content), "src/vignettes/testing.md")
-            cat("Created src/vignettes/testing.md\n")
+            writeLines(c(yaml_header, testing_content), "src/vignettes/testing.qmd")
+            cat("Created src/vignettes/testing.qmd\n")
           }
         shell: Rscript {0}
 
