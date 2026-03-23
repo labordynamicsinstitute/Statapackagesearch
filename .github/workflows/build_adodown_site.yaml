@@ -1,6 +1,7 @@
 on:
   push:
     branches: [main, master]
+  pull_request:
 
 name: Build Site
 
@@ -53,11 +54,13 @@ jobs:
         shell: Rscript {0}
 
       - name: Upload artifact
+        if: github.event_name == 'push'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./docs
 
   deploy:
+    if: github.event_name == 'push'
     permissions:
       contents: read
       pages: write
