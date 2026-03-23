@@ -1,0 +1,7 @@
+# Defines file mappings for the adodownr build process.
+# Files at `from` (relative to repo root) are copied to `to` during the CI build.
+# This allows the Stata package source to remain in its conventional locations
+# while satisfying the directory structure expected by adodownr::build_site().
+copy:
+  - from: packagesearch.pkg
+    to: src/packagesearch.pkg

@@ -49,6 +49,32 @@ jobs:
         run: install.packages("here")
         shell: Rscript {0}
 
+      - name: Copy files per adodown_assets.yml mapping
+        run: |
+          config <- yaml::read_yaml("src/dev/adodown_assets.yml")
+          for (item in config$copy) {
+            dest_dir <- dirname(item$to)
+            if (!dir.exists(dest_dir)) dir.create(dest_dir, recursive = TRUE)
+            file.copy(item$from, item$to, overwrite = TRUE)
+            cat(sprintf("Copied %s -> %s\n", item$from, item$to))
+          }
+        shell: Rscript {0}
+
+      - name: Extract Testing vignette from README
+        run: |
+          readme <- readLines("README.md", warn = FALSE)
+          testing_start <- grep("^## Testing", readme)
+          if (length(testing_start) > 0) {
+            next_h2 <- grep("^## ", readme)
+            next_h2 <- next_h2[next_h2 > testing_start[1]]
+            testing_end <- if (length(next_h2) > 0) next_h2[1] - 1 else length(readme)
+            testing_content <- readme[testing_start[1]:testing_end]
+            dir.create("src/vignettes", recursive = TRUE, showWarnings = FALSE)
+            writeLines(testing_content, "src/vignettes/testing.md")
+            cat("Created src/vignettes/testing.md\n")
+          }
+        shell: Rscript {0}
+
       - name: Build site
         run: adodownr::build_site(pkg_dir = here::here(), site_dir = here::here())
         shell: Rscript {0}
