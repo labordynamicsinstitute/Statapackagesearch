@@ -81,6 +81,18 @@ jobs:
         run: adodownr::build_site(pkg_dir = here::here(), site_dir = here::here())
         shell: Rscript {0}
 
+      - name: Copy Stata install files to docs
+        run: |
+          config <- yaml::read_yaml("src/dev/adodown_assets.yml")
+          dir.create("docs", showWarnings = FALSE, recursive = TRUE)
+          for (item in config$install) {
+            dest_dir <- dirname(item$to)
+            if (!dir.exists(dest_dir)) dir.create(dest_dir, recursive = TRUE)
+            file.copy(item$from, item$to, overwrite = TRUE)
+            cat(sprintf("Copied %s -> %s\n", item$from, item$to))
+          }
+        shell: Rscript {0}
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
