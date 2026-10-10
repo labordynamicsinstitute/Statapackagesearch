@@ -1,6 +1,6 @@
 /* This will test the packagesearch package */
 /* It should identify the fact that multiple keywords from the same package should yield only one mention */
-/* Note this will run the version from raw github, not the to-be-installed version */
+/* Note this will run the *local* version, not the to-be-installed version */
 /* expected output: 
 
 Test 3-1:

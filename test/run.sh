@@ -1,33 +1,22 @@
 #!/bin/bash
 
-# Assumes stata-mp is in the path
+# Assumes stata-mp is in the path (override with STATA=...)
+# Each test do-file installs the package from the local checkout (test/install.do)
 
-stata-mp -b test/install-tmp.do
-stata-mp -b test/test1.do
-if [[ -f verify_test1.sh ]]
+STATA=${STATA:-stata-mp}
+failed=0
+
+for t in 1 2 3
+do
+   # Test 2: what happens when there are long words
+   # Test 3: what happens when there are duplicate keywords
+   $STATA -b do test/test$t.do
+   test/verify_test$t.sh || failed=1
+done
+
+if [[ $failed -ne 0 ]]
 then
-   ./verify_test1.sh
-else
-   test/verify_test1.sh
+   echo "One or more tests failed"
+   exit 1
 fi
-
-
-# Testing for what happens when there are long words
-
-stata-mp -b test/test2.do
-if [[ -f verify_test2.sh ]]
-then
-   ./verify_test2.sh
-else
-   test/verify_test2.sh
-fi
-
-# Testing for what happens when there are duplicate keywords
-
-stata-mp -b test/test3.do
-if [[ -f verify_test3.sh ]]
-then
-   ./verify_test3.sh
-else
-   test/verify_test3.sh
-fi
+echo "All tests passed"
