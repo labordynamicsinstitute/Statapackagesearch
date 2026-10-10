@@ -1,4 +1,5 @@
 actual_output*.txt
 stata.log
 *.log
-stata.licstata.lic.b64
+stata.lic
+stata.lic.b64
