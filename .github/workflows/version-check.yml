@@ -1,0 +1,24 @@
+# Unit tests for the release tooling, plus the drift check: every stamped
+# file (.ado, .sthlp, .pkg, stata.toc, CITATION.cff) must agree with
+# VERSION. Needs no Stata license, so it runs on every PR and push to main.
+name: Version check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Unit tests
+      run: python3 -m unittest discover -s tools/tests -t . -v
+    - name: Drift check
+      run: python3 tools/set_version.py --check

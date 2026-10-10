@@ -1,0 +1,135 @@
+# Cut a release of packagesearch. Manual trigger only; see docs/RELEASING.md.
+#
+# What a run does, in order:
+#   1. runs the unit tests and the drift check;
+#   2. resolves the version -- the explicit `version` input if given,
+#      otherwise VERSION incremented by `bump` -- and stamps it, with
+#      today's date, into VERSION, the .ado/.sthlp headers, the .pkg,
+#      stata.toc and CITATION.cff (tools/set_version.py);
+#   3. commits that to main as "release vX.Y.Z" and tags it vX.Y.Z,
+#      pushing both in one atomic push;
+#   4. creates the GitHub release;
+#   5. asks GitHub Pages to rebuild, since Pages serves main and is the
+#      documented -net install- location.
+#
+# The first run passes version = 1.1.1 explicitly. Later runs leave it
+# blank and pick a bump level.
+
+name: release
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Which part to increment (see AGENTS.md for what each means)"
+        required: false
+        default: patch
+        type: choice
+        options: [patch, minor, major]
+      version:
+        description: "Explicit version, no leading v (e.g. 1.1.1). Blank = increment VERSION by bump."
+        required: false
+        type: string
+
+permissions:
+  contents: write   # push the release commit and tag, create the release
+  pages: write      # request a Pages rebuild
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # The release commit goes onto main; dispatching from another branch
+    # would tag a commit that main never sees.
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0      # the existing-tag guard reads every tag
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run the unit tests and the drift check
+        run: |
+          python3 -m unittest discover -s tools/tests -t . -v
+          python3 tools/set_version.py --check
+
+      - name: Stamp the new version
+        id: stamp
+        env:
+          IN_VERSION: ${{ inputs.version }}
+          IN_BUMP: ${{ inputs.bump }}
+        run: |
+          set -euo pipefail
+          args=(--bump "$IN_BUMP")
+          if [ -n "$IN_VERSION" ]; then
+            args+=(--version "$IN_VERSION")
+          fi
+          # Refuses, before anything is written, a version whose tag exists.
+          python3 tools/set_version.py "${args[@]}"
+          python3 tools/set_version.py --check
+
+      - name: Commit, tag and push
+        env:
+          TAG: ${{ steps.stamp.outputs.tag }}
+        run: |
+          set -euo pipefail
+          # A runner has no git identity of its own; this is the standard
+          # bot identity and applies to this CI checkout only.
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # The local tag list came from the checkout; ask the remote too,
+          # in case a tag was pushed after the checkout.
+          if git ls-remote --exit-code origin "refs/tags/$TAG" >/dev/null 2>&1; then
+            echo "error: tag $TAG is already published." >&2
+            exit 1
+          fi
+
+          git add -A
+          # Re-releasing what is already stamped on the same day (the first
+          # release, typically) changes nothing; tag HEAD as it is.
+          if git diff --cached --quiet; then
+            echo "Nothing to stamp; tagging the current commit."
+          else
+            git commit -m "release $TAG"
+          fi
+          git tag -a "$TAG" -m "packagesearch $TAG"
+          # One atomic push: a commit that lands without its tag (or the
+          # reverse) would leave main and the releases out of step.
+          git push --atomic origin HEAD:main "refs/tags/$TAG"
+
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.stamp.outputs.tag }}
+        run: |
+          gh release create "$TAG" \
+            --title "packagesearch $TAG" \
+            --generate-notes \
+            --latest
+
+      - name: Rebuild GitHub Pages
+        # Pages (legacy build from main) is the documented install
+        # location. A push made with GITHUB_TOKEN may not trigger a build
+        # on its own, so request one. Not fatal: the release is done.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" \
+            || echo "::warning::Could not request a Pages build; push any commit to main or rebuild from Settings -> Pages."
+
+      - name: Summarise
+        env:
+          TAG: ${{ steps.stamp.outputs.tag }}
+        run: |
+          {
+            echo "## Released \`$TAG\`"
+            echo
+            echo '```stata'
+            echo 'net install packagesearch, replace from("https://labordynamicsinstitute.github.io/Statapackagesearch/")'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

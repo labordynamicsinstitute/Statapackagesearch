@@ -1,4 +1,5 @@
 {smcl}
+{* *! version 1.1.1  09oct2026}{...}
 {cmd:help packagesearch}{right: ({browse "http://www.stata-journal.com/":SJX-X: dmXXXX})}
 {hline}
 
