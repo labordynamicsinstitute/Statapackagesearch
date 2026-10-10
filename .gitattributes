@@ -1,0 +1,2 @@
+# Keep the Stata Journal manuscript out of release archives
+sj/ export-ignore

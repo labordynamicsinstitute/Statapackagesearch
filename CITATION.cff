@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "packagesearch: Module to scan Stata .do files and identify SSC packages used by the code"
+abstract: >-
+  packagesearch scans, parses, and matches all Stata .do files in a directory
+  (and its subdirectories) against a list of all packages currently hosted at
+  SSC, and outputs a list of candidate SSC packages that were (likely) used
+  when the code was run.
+authors:
+  - family-names: Reiner
+    given-names: Lydia
+    affiliation: Cornell University
+  - family-names: Vilhuber
+    given-names: Lars
+    affiliation: Cornell University
+    orcid: "https://orcid.org/0000-0001-5733-8932"
+version: 1.1.1
+date-released: 2026-10-09
+license: BSD-3-Clause
+repository-code: "https://github.com/labordynamicsinstitute/Statapackagesearch"
+url: "https://labordynamicsinstitute.github.io/Statapackagesearch/"
+keywords:
+  - Stata
+  - SSC
+  - reproducibility
+  - dependencies
