@@ -5,69 +5,45 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    # Monthly, on the 1st at 06:17 UTC, to catch drift (SSC, Stata image, license)
+    - cron: '17 6 1 * *'
+
+env:
+  STATA_IMAGE: dataeditors/stata19_5-mp:2026-08-12
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-#============================
+    - uses: actions/checkout@v4
+    - name: Set up Stata license
+      env:
+        STATA_LIC_BASE64: ${{ secrets.STATA_LIC_BASE64 }}
+      run: |
+        if [[ -z "$STATA_LIC_BASE64" ]]
+        then
+          echo "::error::STATA_LIC_BASE64 secret is not available to this repository"
+          exit 1
+        fi
+        echo "$STATA_LIC_BASE64" | base64 -d > stata.lic
     - name: Prepare
-      run: "chmod a+rx test/*sh"
-    - name: Run Stata Test 1
-      id: ci-stata1
-      uses: labordynamicsinstitute/continuous-integration-stata@v0.2
+      # the container runs as statauser, which must be able to write logs and outputs
+      run: chmod -R a+rwX .
+    - name: Run Stata tests
+      run: |
+        docker run --rm \
+          -v "$(pwd)/stata.lic:/usr/local/stata/stata.lic" \
+          -v "$(pwd):/project" \
+          -w /project \
+          --entrypoint /bin/bash \
+          "$STATA_IMAGE" \
+          ./test/run.sh
+    - name: Upload logs
+      if: always()
+      uses: actions/upload-artifact@v4
       with:
-        program: test/test1.do
-        version: ${{ secrets.STATA_VERSION }}
-        serial-number: ${{ secrets.STATA_SERIALNUMBER }}
-        code: ${{ secrets.STATA_CODE }}
-        authorization: ${{ secrets.STATA_AUTH }}
-        name: ${{ secrets.STATA_NAME }}
-        institution: ${{ secrets.STATA_INSTITUTION }}
-        changedir: no
-    - name: Verify output Test 1
-      run: "test/verify_test1.sh"
-#============================
-    - name: Run Stata Test 2
-      id: ci-stata2
-      uses: labordynamicsinstitute/continuous-integration-stata@v0.2
-      with:
-        program: test/test2.do
-        version: ${{ secrets.STATA_VERSION }}
-        serial-number: ${{ secrets.STATA_SERIALNUMBER }}
-        code: ${{ secrets.STATA_CODE }}
-        authorization: ${{ secrets.STATA_AUTH }}
-        name: ${{ secrets.STATA_NAME }}
-        institution: ${{ secrets.STATA_INSTITUTION }}
-        changedir: no
-    - name: Verify output Test 2
-      run: "test/verify_test2.sh"
-#============================
-    - name: Run Stata Test 3
-      id: ci-stata3
-      uses: labordynamicsinstitute/continuous-integration-stata@v0.2
-      with:
-        program: test/test3.do
-        version: ${{ secrets.STATA_VERSION }}
-        serial-number: ${{ secrets.STATA_SERIALNUMBER }}
-        code: ${{ secrets.STATA_CODE }}
-        authorization: ${{ secrets.STATA_AUTH }}
-        name: ${{ secrets.STATA_NAME }}
-        institution: ${{ secrets.STATA_INSTITUTION }}
-        changedir: no
-    - name: Verify output Test 3
-      run: "test/verify_test3.sh"
-    # - name: Add test results to git to be pushed
-      # run: "git add -f *.log *.txt"
-    # - name: Deploy
-      # id: deploy
-      # uses: peaceiris/actions-gh-pages@v3.8.0
-      # with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: .
-      #     user_name: 'Github Action Bot'
-      #     user_email: lars.vilhuber@cornell.edu
-      #     publish_branch: results
-      #     keep_files: true
-      #     commit_message: ${{ github.event.head_commit.message }}
+        name: stata-logs
+        path: |
+          *.log
+          actual_output*.txt

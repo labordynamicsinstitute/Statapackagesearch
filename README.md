@@ -96,7 +96,7 @@ docker run -it --rm \
    -v $(pwd)/stata.lic:/usr/local/stata/stata.lic \
    -v $(pwd):/project \
    -w /project \
-   --entrypoint /bin/bash dataeditors/stata17:2023-05-16 \
+   --entrypoint /bin/bash dataeditors/stata19_5-mp:2026-08-12 \
    ./test/run.sh
 ```
 

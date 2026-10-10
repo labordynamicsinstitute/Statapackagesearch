@@ -74,7 +74,7 @@ if ("`domain'" != "") {
 
 /* add necessary packages to perform the scan & analysis to the macro */
 
-local ssc_packages "fs filelist txttool strip"
+local ssc_packages "fs filelist txttool"
 n di "Required packages: `ssc_packages'"
 
 foreach pkg in `ssc_packages' {
@@ -154,9 +154,8 @@ label var probFalsePos "likelihood of false positive based on package popularity
 sort word
 	
 *remove underscores from applicable packages
-strip packagename, of("_") gen(p_underscore)
-qui replace packagename = p_underscore
-qui drop p_underscore rank
+qui replace packagename = subinstr(packagename, "_", "", .)
+qui drop rank
 	
 gsort packagename -hits
 n di "Dropping duplicates pulled from SSC"

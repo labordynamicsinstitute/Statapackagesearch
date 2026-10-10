@@ -2,3 +2,4 @@ actual_output*.txt
 stata.log
 *.log
 stata.lic
+stata.lic.b64
