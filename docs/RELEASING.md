@@ -66,6 +66,20 @@ Run it **once** with `version` set to `1.1.1`: `VERSION` already says
 start from the previous GitHub release (`1.0.16`, 2022); edit them by hand
 if that is too long.
 
+## What a release archive contains
+
+The "Source code" zip and tar.gz of a GitHub release (and what Zenodo
+archives) hold only the files `net install` installs (the `f`/`F` lines of
+`packagesearch.pkg`), plus `packagesearch.pkg`, `stata.toc`, `LICENSE`,
+`CITATION.cff` and `README.md`. `.gitattributes` does this: it marks every
+file `export-ignore` and re-includes those by name.
+`tools/tests/test_archive.py` fails if that list and the `.pkg` disagree.
+To see what the next release would contain:
+
+```bash
+git archive HEAD | tar -t
+```
+
 ## Trying it locally
 
 ```bash
