@@ -46,7 +46,9 @@ net install packagesearch, replace from("https://raw.githubusercontent.com/labor
    1. runs the unit tests and the drift check;
    2. stamps the new version and today's date (UTC);
    3. commits `release vX.Y.Z` to `main` and tags it, in one atomic push;
-   4. creates the GitHub release with generated notes;
+   4. creates the GitHub release. Its notes start with a copy-paste
+      `net install` line for that tag, followed by the generated
+      "What's Changed";
    5. asks GitHub Pages to rebuild.
 
 Starting from `VERSION` = `1.1.1`:
@@ -107,6 +109,7 @@ git restore VERSION *.ado *.sthlp *.pkg stata.toc CITATION.cff  # do not commit 
   from **Settings → Pages** or push any commit to `main`.
 - If a run pushed the tag but failed at the GitHub-release step, do not
   rerun it (it will refuse, since the tag exists). Finish it by hand:
-  `gh release create vX.Y.Z --generate-notes --latest`.
+  `gh release create vX.Y.Z --generate-notes --latest`, then add the
+  install line at the top of the notes (copy it from an earlier release).
 - To redo a release, delete both the GitHub release and its tag. The
   `release vX.Y.Z` commit stays on `main`; rerun with `version: X.Y.Z`.
