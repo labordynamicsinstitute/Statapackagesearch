@@ -8,7 +8,8 @@
 #      stata.toc and CITATION.cff (tools/set_version.py);
 #   3. commits that to main as "release vX.Y.Z" and tags it vX.Y.Z,
 #      pushing both in one atomic push;
-#   4. creates the GitHub release;
+#   4. creates the GitHub release, its notes starting with the
+#      -net install- line for that tag;
 #   5. asks GitHub Pages to rebuild, since Pages serves main and is the
 #      documented -net install- location.
 #
@@ -107,8 +108,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.stamp.outputs.tag }}
         run: |
+          # --notes is put before the generated "What's Changed".
+          url="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$TAG/"
+          notes=$(printf '## Install this release\n\n```stata\nnet install packagesearch, replace from("%s")\n```\n' "$url")
           gh release create "$TAG" \
             --title "packagesearch $TAG" \
+            --notes "$notes" \
             --generate-notes \
             --latest
 
