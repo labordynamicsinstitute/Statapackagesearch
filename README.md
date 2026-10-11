@@ -111,6 +111,8 @@ docker run -it --rm \
    ./test/run.sh
 ```
 
+`./test/install_check.sh`, run the same way (it needs network access), checks that the package installs from a release archive of the current commit and from every install URL given above.
+
 ## Contributing and releases
 
 The version number lives in `VERSION` and is stamped into the `.ado`, `.sthlp`, `.pkg`, `stata.toc` and `CITATION.cff` files by the release workflow. **Do not edit version numbers by hand**; state in your pull request whether the change warrants a major, minor or patch release. The rules are in [AGENTS.md](AGENTS.md), and the release process is in [docs/RELEASING.md](docs/RELEASING.md).

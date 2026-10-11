@@ -2,9 +2,15 @@
 
 The workflow [`.github/workflows/test.yml`](../.github/workflows/test.yml) runs the tests in this directory ([`run.sh`](run.sh)) inside a Stata Docker image (`dataeditors/stata19_5-mp`). It runs:
 
-- on every push to `main`,
+- on every push to `main` and on every pull request,
 - monthly (1st of the month, 06:17 UTC), to catch changes outside this repository (SSC packages, the SSC popularity list, an expired license),
 - manually: `gh workflow run test.yml` (add `--ref <branch>` to test a branch).
+
+After the tests, it runs [`install_check.sh`](install_check.sh), which checks that `net install packagesearch` works from
+- a release archive built from the commit (`git archive`, which is what a GitHub release ships), and
+- every `net install ... from("...")` URL in the main [README](../README.md) and [`docs/RELEASING.md`](../docs/RELEASING.md), so a documented install command that does not work (say, a tag that does not exist) fails the CI.
+
+Each source installs into its own empty `PLUS` directory; the results are in `install_check_result.txt` and `install_check.log`.
 
 ## Required secret
 
