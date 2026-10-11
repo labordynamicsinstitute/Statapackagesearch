@@ -10,11 +10,13 @@ To install, type the following command into Stata.
 net install packagesearch, from("https://labordynamicsinstitute.github.io/Statapackagesearch/")
 ```
 
-To install a specific release instead (see [Releases](https://github.com/labordynamicsinstitute/Statapackagesearch/releases)), use its tag:
+To install a specific release instead, put its tag (listed under [Releases](https://github.com/labordynamicsinstitute/Statapackagesearch/releases)) into the URL. For example, for `v1.1.3`:
 
 ```
-net install packagesearch, replace from("https://raw.githubusercontent.com/labordynamicsinstitute/Statapackagesearch/v1.1.1/")
+net install packagesearch, replace from("https://raw.githubusercontent.com/labordynamicsinstitute/Statapackagesearch/v1.1.3/")
 ```
+
+Releases from `v1.1.2` on are tagged `vX.Y.Z`. Older releases have no `v` in their tags: `1.1.0`, `1.0.20` and `1.0.16`. `replace` overwrites whatever version is currently installed.
 
 `which packagesearch` shows the installed version.
 

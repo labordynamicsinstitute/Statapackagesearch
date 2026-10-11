@@ -27,7 +27,7 @@ pull request.
 Any release can be installed by tag:
 
 ```stata
-net install packagesearch, replace from("https://raw.githubusercontent.com/labordynamicsinstitute/Statapackagesearch/v1.1.1/")
+net install packagesearch, replace from("https://raw.githubusercontent.com/labordynamicsinstitute/Statapackagesearch/v1.1.3/")
 ```
 
 ## Cutting a release
