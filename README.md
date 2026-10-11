@@ -1,4 +1,5 @@
 [![Test CI Stata](https://github.com/labordynamicsinstitute/Statapackagesearch/actions/workflows/test.yml/badge.svg)](https://github.com/labordynamicsinstitute/Statapackagesearch/actions/workflows/test.yml)
+[![Latest release](https://img.shields.io/github/v/release/labordynamicsinstitute/Statapackagesearch)](https://github.com/labordynamicsinstitute/Statapackagesearch/releases/latest)
 
 # `Packagesearch`: module to scan Stata .do files and identify SSC packages used by the code
 
@@ -8,6 +9,14 @@ To install, type the following command into Stata.
 ```
 net install packagesearch, from("https://labordynamicsinstitute.github.io/Statapackagesearch/")
 ```
+
+To install a specific release instead (see [Releases](https://github.com/labordynamicsinstitute/Statapackagesearch/releases)), use its tag:
+
+```
+net install packagesearch, replace from("https://raw.githubusercontent.com/labordynamicsinstitute/Statapackagesearch/v1.1.1/")
+```
+
+`which packagesearch` shows the installed version.
 
 ## Syntax: (also available in the help file)
 
@@ -99,6 +108,10 @@ docker run -it --rm \
    --entrypoint /bin/bash dataeditors/stata19_5-mp:2026-08-12 \
    ./test/run.sh
 ```
+
+## Contributing and releases
+
+The version number lives in `VERSION` and is stamped into the `.ado`, `.sthlp`, `.pkg`, `stata.toc` and `CITATION.cff` files by the release workflow. **Do not edit version numbers by hand**; state in your pull request whether the change warrants a major, minor or patch release. The rules are in [AGENTS.md](AGENTS.md), and the release process is in [docs/RELEASING.md](docs/RELEASING.md).
 
 ### Questions?
 

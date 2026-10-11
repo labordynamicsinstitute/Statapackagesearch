@@ -3,3 +3,4 @@ stata.log
 *.log
 stata.lic
 stata.lic.b64
+__pycache__/
