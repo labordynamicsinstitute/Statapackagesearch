@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  # also on pull requests, so the installability check sees changed
+  # install instructions before they are merged
+  pull_request:
   workflow_dispatch:
   schedule:
     # Monthly, on the 1st at 06:17 UTC, to catch drift (SSC, Stata image, license)
@@ -39,6 +42,18 @@ jobs:
           --entrypoint /bin/bash \
           "$STATA_IMAGE" \
           ./test/run.sh
+    - name: Check installability
+      # net install from a release archive of HEAD and from every URL the
+      # README and docs/RELEASING.md give; runs even if the tests failed
+      if: ${{ !cancelled() }}
+      run: |
+        docker run --rm \
+          -v "$(pwd)/stata.lic:/usr/local/stata/stata.lic" \
+          -v "$(pwd):/project" \
+          -w /project \
+          --entrypoint /bin/bash \
+          "$STATA_IMAGE" \
+          ./test/install_check.sh
     - name: Upload logs
       if: always()
       uses: actions/upload-artifact@v4
@@ -47,3 +62,4 @@ jobs:
         path: |
           *.log
           actual_output*.txt
+          install_check_result.txt

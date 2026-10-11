@@ -4,3 +4,7 @@ stata.log
 stata.lic
 stata.lic.b64
 __pycache__/
+install_check_archive/
+install_check_plus/
+install_check_sources.txt
+install_check_result.txt
