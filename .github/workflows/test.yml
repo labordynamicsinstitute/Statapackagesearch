@@ -16,7 +16,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - name: Set up Stata license
       env:
         STATA_LIC_BASE64: ${{ secrets.STATA_LIC_BASE64 }}
@@ -41,7 +41,7 @@ jobs:
           ./test/run.sh
     - name: Upload logs
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: stata-logs
         path: |
