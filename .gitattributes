@@ -1,2 +1,19 @@
-# Keep the Stata Journal manuscript out of release archives
-sj/ export-ignore
+# Release archives (the "Source code" zip/tar.gz of a GitHub release, and
+# what Zenodo archives) hold only what -net install- installs, plus the
+# files that describe it. Everything else is left out: exclude all, then
+# re-include by name. Root-anchored, so auxiliary/README.md stays out.
+#
+# Keep the re-included list in step with the f/F lines of packagesearch.pkg;
+# tools/tests/test_archive.py checks that.
+*                         export-ignore
+/packagesearch.ado        -export-ignore
+/packagesearch.sthlp      -export-ignore
+/p_whatshot.ado           -export-ignore
+/p_stopwords.txt          -export-ignore
+/p_stats_econ.dta         -export-ignore
+/p_keyword_pkg_xwalk.dta  -export-ignore
+/packagesearch.pkg        -export-ignore
+/stata.toc                -export-ignore
+/LICENSE                  -export-ignore
+/CITATION.cff             -export-ignore
+/README.md                -export-ignore

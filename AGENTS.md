@@ -29,7 +29,10 @@ the release date, are stamped into:
    - **none** — changes to tests, CI, tooling or the `sj/` manuscript only.
 3. **A new root-level `.ado` or `.sthlp` file** must start with the same
    version header as its siblings (copy the current one) and be added to
-   `TARGETS` in `tools/stamp.py`.
+   `TARGETS` in `tools/stamp.py`. Any file added to `packagesearch.pkg`
+   must also be re-included in `.gitattributes`, which keeps release
+   archives down to the installed files plus `LICENSE`, `CITATION.cff`
+   and `README.md` (the unit tests check this).
 4. Before committing, run the checks; CI runs them on every push:
 
    ```bash
