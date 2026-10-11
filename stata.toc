@@ -1,7 +1,7 @@
 v 3
 
 d Lydia Reiner and Lars Vilhuber, Cornell University
-d Version 1.1.1 (2026-10-09)
+d Version 1.1.2 (2026-10-11)
 p packagesearch Module to scan Stata .do files and return list of user-written packages necessary to run the code
 
 

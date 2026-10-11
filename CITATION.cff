@@ -15,8 +15,8 @@ authors:
     given-names: Lars
     affiliation: Cornell University
     orcid: "https://orcid.org/0000-0001-5733-8932"
-version: 1.1.1
-date-released: 2026-10-09
+version: 1.1.2
+date-released: 2026-10-11
 license: BSD-3-Clause
 repository-code: "https://github.com/labordynamicsinstitute/Statapackagesearch"
 url: "https://labordynamicsinstitute.github.io/Statapackagesearch/"
