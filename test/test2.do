@@ -2,27 +2,15 @@
 /* Note this will run the *local* version, not the to-be-installed version */
 /* expected output: 
 
-Test 2-1:
+Test 2-1: data/test2/longwords_nounderscores.do is scanned; its 31-character
+          word is dropped before txttool runs
 
-  Processing file data/test2/longwords_nounderscores.do
-w_axthisisalongwordxgoingxupxtoxh invalid name
-             st_addvar():  3300  argument out of range
-               wordbag():     -  function returned error
-            mm_txttool():     -  function returned error
-                 <istmt>:     -  function returned error
-Error: file data/test2/longwords_nounderscores.do contains long string unable t
-> o be processed. It has been omitted from the scanning process.
+          data/test2/comments_only.do has no code, which is not an error
 
-Test 2-2:
+Test 2-2: all files are scanned, so reghdfe and ivreg2 are both found
 
-
-     +-----------
-     |   match   
-     |-----------
-  1. | reghdfe   
-     +-----------
-
-. exit, clear STA
+Test 2-3: every keyword fits in a w_<word> variable once cleaned the way the
+          scan cleans a do-file, so dropping longer words loses no keyword
 
 */
 
@@ -30,4 +18,8 @@ Test 2-2:
 include "test/install.do"
 which packagesearch
 packagesearch, codedir(data/test2) 
+use p_keyword_pkg_xwalk.dta, clear
+gen cleaned = ustrregexra(lower(keyword), "[^a-z0-9]", "")
+qui count if ustrlen(cleaned) > 30
+di "Test 2-3: keywords over 30 characters: " r(N)
 exit, clear STATA

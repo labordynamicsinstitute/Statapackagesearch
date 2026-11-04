@@ -239,11 +239,23 @@ qui {
 	    *omit the end of lines of code (usually don't contain packages anyways)
 	    qui replace txtstring = ustrleft(txtstring, 72)
 	    
+	    * txttool lowercases each line, keeps only a-z, 0-9 and spaces, and creates
+	    * a variable w_<word> for each word. A word of 31 or more characters needs a
+	    * name longer than the 32 characters Stata allows, and txttool then fails on
+	    * the whole file. Clean the line the same way here and drop those words: no
+	    * keyword in p_keyword_pkg_xwalk.dta is that long once underscores are removed.
+	    qui replace txtstring = ustrregexra(lower(txtstring), "[^a-z0-9 ]", "")
+	    qui replace txtstring = ustrregexra(txtstring, "[a-z0-9]{31,}", "")
+	    
 	    
 	    * perform the txttool analysis- removes stopwords and duplicates
 	    
-	    cap n txttool txtstring,  stop("`rootdir'/p_stopwords.txt") gen(bagged_words)  bagwords prefix(w_)
-	    	if _rc di as text "Error: file `v' contains long string unable to be processed. It has been omitted from the scanning process."
+	    * a file with nothing left to scan (only comments, say) is not an error
+	    qui count if txtstring != ""
+	    if r(N) > 0 {
+	    	cap n txttool txtstring,  stop("`rootdir'/p_stopwords.txt") gen(bagged_words)  bagwords prefix(w_)
+	    	if _rc noi di as text "Error: file `v' could not be processed (txttool error r(" _rc ")). It has been omitted from the scanning process."
+	    }
 	    
 	    
 	    * saves the results as .dta file (one for each .do file in the folder)
