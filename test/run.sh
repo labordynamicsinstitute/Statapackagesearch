@@ -6,10 +6,11 @@
 STATA=${STATA:-stata-mp}
 failed=0
 
-for t in 1 2 3
+for t in 1 2 3 5
 do
    # Test 2: what happens when there are long words
    # Test 3: what happens when there are duplicate keywords
+   # Test 5: keywords and packages with underscores or capitals in their raw names
    $STATA -b do test/test$t.do
    test/verify_test$t.sh || failed=1
 done
