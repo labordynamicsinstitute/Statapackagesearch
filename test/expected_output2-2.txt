@@ -1,8 +1,6 @@
-
      +-----------
      |   match   
      |-----------
   1. | reghdfe   
+  2. |  ivreg2   
      +-----------
-
-. exit, clear STA
