@@ -250,8 +250,12 @@ qui {
 	    
 	    * perform the txttool analysis- removes stopwords and duplicates
 	    
-	    cap n txttool txtstring,  stop("`rootdir'/p_stopwords.txt") gen(bagged_words)  bagwords prefix(w_)
-	    	if _rc noi di as text "Error: file `v' contains long string unable to be processed. It has been omitted from the scanning process."
+	    * a file with nothing left to scan (only comments, say) is not an error
+	    qui count if txtstring != ""
+	    if r(N) > 0 {
+	    	cap n txttool txtstring,  stop("`rootdir'/p_stopwords.txt") gen(bagged_words)  bagwords prefix(w_)
+	    	if _rc noi di as text "Error: file `v' could not be processed (txttool error r(" _rc ")). It has been omitted from the scanning process."
+	    }
 	    
 	    
 	    * saves the results as .dta file (one for each .do file in the folder)

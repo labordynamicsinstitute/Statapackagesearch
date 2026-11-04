@@ -18,9 +18,12 @@ then
    fi
    echo "Success: Test 2-1"
    # Verify second test: both files are scanned, so both packages are found
-   sed -n '/^Candidate packages listed below/,/^Programs parsed:/p' test2.log > actual_output2-2.txt
+   sed -n '/^Candidate packages listed below/,/^Test 2-3:/p' test2.log > actual_output2-2.txt
    diff <(normalize < actual_output2-2.txt) <(normalize < test/expected_output2-2.txt) || { echo "Not the expected output: Test 2-2"; exit 2; }
    echo "Success: Test 2-2"
+   # Verify third test: no keyword would be dropped along with the long words
+   grep -q "^Test 2-3: keywords over 30 characters: 0$" test2.log || { echo "Not the expected output: Test 2-3"; exit 2; }
+   echo "Success: Test 2-3"
    exit 0 
 else
    echo "Something went wrong with running Stata"
