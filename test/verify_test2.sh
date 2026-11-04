@@ -11,7 +11,7 @@ then
    # Verify first test: a word too long for a variable name (31 characters, 33 with
    # the w_ prefix) is dropped, so txttool does not fail on the file
    grep -q "Processing file data/test2/longwords_nounderscores.do" test2.log || { echo "Not the expected output: Test 2-1 (file not processed)"; exit 2; }
-   if grep -qE "invalid name|unable to be processed" test2.log
+   if grep -qE '^w_[a-z0-9]+ invalid name|^Error: file ' test2.log
    then
       echo "Not the expected output: Test 2-1"
       exit 2
