@@ -2,15 +2,15 @@
      |             match   rank   probFalsePos                          keyword |
      |--------------------------------------------------------------------------|
   1. |            estout      1              0                           eststo |
-  2. |        wbopendata     76              0                             tknz |
-  3. |           joyplot    455       .1139494                          joyplot |
-  4. |              tknz    660       .1647884                             tknz |
-  5. |       egeninequal    812        .202855                            theil |
+  2. |           joyplot    455       .1139494                          joyplot |
+  3. |       egeninequal    811       .2031054                            theil |
+  4. |        laplacereg   1624       .4082144                       laplacereg |
+  5. |          runmplus   2352       .5900326    readparameterestimatesgeneral |
      |--------------------------------------------------------------------------|
-  6. |          runmplus   2352       .5900326    readparameterestimatesgeneral |
-  7. |          runmplus   2352       .5900326   readparameterestimatesindirect |
-  8. |              qenv   3023       .7580766                            qenvf |
-  9. | aicmodelselection   3476       .8672677                aicmodelselection |
+  6. |          runmplus   2352       .5900326   readparameterestimatesindirect |
+  7. |              qenv   3023       .7583271                            qenvf |
+  8. | aicmodelselection   3466       .8687704                aicmodelselection |
+  9. |           regmain   3656        .916604                       laplacereg |
      +--------------------------------------------------------------------------+
 
 . di "====Test 5-2: END"

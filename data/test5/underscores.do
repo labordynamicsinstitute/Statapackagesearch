@@ -14,8 +14,8 @@ qenvF y x
 /* the keyword is plain, the package has underscores (egen_inequal) */
 egen y = theil(x)
 
-/* the same word comes from two packages: tknz (tknz) and _tknz (wbopendata); both are reported */
-tknz y x
+/* the same word comes from two packages: laplacereg (laplacereg) and _laplacereg (regmain); both are reported */
+laplacereg y x
 
 /* the same word comes from two keywords of one package (_eststo, eststo in estout); it counts once */
 eststo: y x
