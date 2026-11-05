@@ -335,8 +335,24 @@ if `debug' == 1 {
 	li
 }
 // Merge on word-to-package mapping
-
-qui merge 1:1 keyword using `pkgwords', keep(match) nogen
+// The crosswalk has raw names (Fhat, read_parameterestimates_indirect, _gapport).
+// Compare keywords in the form of a scanned word (see Step 3), and packages in the
+// form of the package list (see Step 2), which keeps any other character in a name.
+// Different raw keywords can become the same word, also across packages: a word
+// then yields every package that provides it. Each word is kept once per package,
+// so that the count of distinct keywords (below) is not inflated.
+preserve
+qui {
+	use keyword package using "`pkgwords'", clear
+	replace keyword = ustrregexra(lower(keyword), "[^a-z0-9]", "")
+	replace package = subinstr(lower(package), "_", "", .)
+	drop if keyword == ""
+	duplicates drop keyword package, force
+	tempfile pkgwords_clean
+	save "`pkgwords_clean'"
+}
+restore
+qui merge 1:m keyword using "`pkgwords_clean'", keep(match) nogen
 // Drop words that are too short
 di as text "::: Dropping words that are too short (<`shortwords')"
 drop if length(keyword)<`shortwords'
@@ -479,7 +495,8 @@ if `r(N)' > 0 {
 		if ("`installfounds'"== "installfounds") {
 			n di as text "Installing packages found during the scanning process."
 			* Install all found packages (including FPs)
-			levelsof match, clean local(foundpackages)
+			* word is the name of the package at SSC; match has no underscores
+			levelsof word, clean local(foundpackages)
 			if !missing("foundpackages") {
 				foreach pkg in `foundpackages' {
 					n dis "Installing `pkg'"

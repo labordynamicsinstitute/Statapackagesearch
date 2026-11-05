@@ -28,7 +28,7 @@
 
 {phang}{opt codedir(directorytoscan)} is required. It specifies the directory that contains the .do files to be scanned for SSC packages.
 
-{phang}{opt details} will preserve the list of keywords that triggered the package match. By default, only the count of such keywords is output.
+{phang}{opt details} will preserve the list of keywords that triggered the package match. By default, only the count of such keywords is output. Keywords are shown in the form in which they are scanned: in lower case and without underscores.
 
 {phang}{opt domain(domain)} optionally specifies a domain from which to take statistics to help identify likely packages (by default, {it:ssc hot} is used). Only available domain right now is {it:econ}.
 
@@ -42,6 +42,8 @@
 
 
 {title:Remarks}
+
+{pstd}Words are compared in lower case and without underscores, in both the scanned code and the list of keywords. A word can therefore match keywords of several packages (for instance, {it:tknz} is a package and {cmd:_tknz} is part of {it:wbopendata}), in which case each of these packages is reported as a candidate.
 
 
 
