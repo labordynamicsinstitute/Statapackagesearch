@@ -62,10 +62,13 @@ _aardl_diagtest,aardl,_aardl_diagtest.ado,ado
 _aardl_dynmult,aardl,_aardl_dynmult.ado,ado
 _aardl_fourier,aardl,_aardl_fourier.ado,ado
 _aardl_graphs,aardl,_aardl_graphs.ado,ado
+_aardl_ndynmult,aardl,_aardl_ndynmult.ado,ado
 _aardl_samcv,aardl,_aardl_samcv.ado,ado
 _aardl_stability,aardl,_aardl_stability.ado,ado
 _aardl_stars,aardl,_aardl_stars.ado,ado
 _adjksm,adjksm,_adjksm.ado,ado
+_api_read,wbopendata,_api_read.ado,ado
+_api_read_indicators,wbopendata,_api_read_indicators.ado,ado
 _ardldml_blockgraph,ardldml,_ardldml_blockgraph.ado,ado
 _ardldml_nullgraph,ardldml,_ardldml_nullgraph.ado,ado
 _asycaus_check_tsset,asycaus,_asycaus_check_tsset.ado,ado
@@ -79,6 +82,8 @@ _bd_parse,bootdiag,_bd_parse.ado,ado
 _bd_prereport,bootdiag,_bd_prereport.ado,ado
 _bd_report,bootdiag,_bd_report.ado,ado
 _binom,williams,_binom.ado,ado
+_boundedur_adf,boundedur,_boundedur_adf.ado,ado
+_boundedur_m,boundedur,_boundedur_m.ado,ado
 _bsqregtrace,grqreg,_bsqregtrace.ado,ado
 _cauchyden,regmain,_cauchyden.ado,ado
 _cauchyevaluator,regmain,_cauchyevaluator.ado,ado
@@ -116,6 +121,7 @@ _codescan_validate_path,codescan,_codescan_validate_path.ado,ado
 _cointsmall_crit,cointsmall,_cointsmall_crit.ado,ado
 _cointvol_store,cointvol,_cointvol_store.ado,ado
 _compile_mata,malmq2,_compile_mata.ado,ado
+_countrymetadata,wbopendata,_countrymetadata.ado,ado
 _cppmlhdfe_abs_options,ctools,_cppmlhdfe_abs_options.ado,ado
 _ctools_cleanup,ctools,_ctools_cleanup.ado,ado
 _ctools_clock,ctools,_ctools_clock.ado,ado
@@ -363,6 +369,7 @@ _mvardlurt_multivariate_save,mvardlurt_multivariate,_mvardlurt_multivariate_save
 _mvardlurt_multivariate_stars,mvardlurt_multivariate,_mvardlurt_multivariate_stars.ado,ado
 _mvardlurt_stars,mvardlurt,_mvardlurt_stars.ado,ado
 _mvis,mice,_mvis.ado,ado
+_nargs,subsim_2,_nargs.ado,ado
 _nestpreserve_audit,nestpreserve,_nestpreserve_audit.ado,ado
 _nestpreserve_manifest,nestpreserve,_nestpreserve_manifest.ado,ado
 _nestpreserve_process,nestpreserve,_nestpreserve_process.ado,ado
@@ -370,6 +377,7 @@ _normalevaluator,regmain,_normalevaluator.ado,ado
 _normalreg,regmain,_normalreg.ado,ado
 _oaxaca9,oaxaca9,_oaxaca9.ado,ado
 _olsci,grqreg,_olsci.ado,ado
+_parameters,wbopendata,_parameters.ado,ado
 _parmest,mitools,_parmest.ado,ado
 _parse_date_to_string,undid,_parse_date_to_string.ado,ado
 _parse_string_to_date,undid,_parse_string_to_date.ado,ado
@@ -406,6 +414,9 @@ _quasicoint_display,quasicoint,_quasicoint_display.ado,ado
 _quasicoint_export,quasicoint,_quasicoint_export.ado,ado
 _quasicoint_mata,quasicoint,_quasicoint_mata.ado,ado
 _quasicoint_plot,quasicoint,_quasicoint_plot.ado,ado
+_query,wbopendata,_query.ado,ado
+_query_indicators,wbopendata,_query_indicators.ado,ado
+_query_metadata,wbopendata,_query_metadata.ado,ado
 _qvar_build_lags,qvar,_qvar_build_lags.ado,ado
 _qvar_estimate,qvar,_qvar_estimate.ado,ado
 _qvar_evaluate,qvar,_qvar_evaluate.ado,ado
@@ -570,6 +581,7 @@ _tk_gsave,threshkit,_tk_gsave.ado,ado
 _tk_irf,threshkit,_tk_irf.ado,ado
 _tk_mvdiag,threshkit,_tk_mvdiag.ado,ado
 _tk_resdiag,threshkit,_tk_resdiag.ado,ado
+_tknz,wbopendata,_tknz.ado,ado
 _tptest_graph,tptest,_tptest_graph.ado,ado
 _tptest_qgraph,tptest,_tptest_qgraph.ado,ado
 _treg,regmain,_treg.ado,ado
@@ -582,6 +594,7 @@ _trop_estat_mht,trop,_trop_estat_mht.ado,ado
 _trop_estat_pretrend,trop,_trop_estat_pretrend.ado,ado
 _trop_estat_table,trop,_trop_estat_table.ado,ado
 _trop_load_mata,trop,_trop_load_mata.ado,ado
+_trop_load_plugin,trop,_trop_load_plugin.ado,ado
 _trop_set_grid,trop,_trop_set_grid.ado,ado
 _trop_validate_params,trop,_trop_validate_params.ado,ado
 _ttest,sdtest,_ttest.ado,ado
@@ -619,6 +632,7 @@ _tvtools_rule,tvtools,_tvtools_rule.ado,ado
 _tvweight_cumprod,tvtools,_tvweight_cumprod.ado,ado
 _unicef_build_schema_key,unicefdata,_unicef_build_schema_key.ado,ado
 _unicef_dataflow_info,unicefdata,_unicef_dataflow_info.ado,ado
+_unicef_fetch_with_fallback,unicefdata,_unicef_fetch_with_fallback.ado,ado
 _unicef_get_disagg_totals,unicefdata,_unicef_get_disagg_totals.ado,ado
 _unicef_indicator_info,unicefdata,_unicef_indicator_info.ado,ado
 _unicef_list_dataflows,unicefdata,_unicef_list_dataflows.ado,ado
@@ -631,6 +645,10 @@ _unicefdata_sync_dataflow_index,unicefdata,_unicefdata_sync_dataflow_index.ado,a
 _unicefdata_sync_df_schema,unicefdata,_unicefdata_sync_df_schema.ado,ado
 _unicefdata_sync_ind_meta,unicefdata,_unicefdata_sync_ind_meta.ado,ado
 _unicefdata_update_sync_history,unicefdata,_unicefdata_update_sync_history.ado,ado
+_update_countrymetadata,wbopendata,_update_countrymetadata.ado,ado
+_update_indicators,wbopendata,_update_indicators.ado,ado
+_update_regionmetadata,wbopendata,_update_regionmetadata.ado,ado
+_update_wbopendata,wbopendata,_update_wbopendata.ado,ado
 _upsetexample,upset_plot,_upsetexample.ado,ado
 _upsetlabfetch,upset_plot,_upsetlabfetch.ado,ado
 _upsetruleparse,upset_plot,_upsetruleparse.ado,ado
@@ -641,6 +659,25 @@ _wavenardl_stars,wavenardl,_wavenardl_stars.ado,ado
 _wbod_tmpfile1,wbopendata,_wbod_tmpfile1.ado,ado
 _wbod_tmpfile2,wbopendata,_wbod_tmpfile2.ado,ado
 _wbod_tmpfile3,wbopendata,_wbod_tmpfile3.ado,ado
+_wbod_yaml_metadata,wbopendata,_wbod_yaml_metadata.ado,ado
+_wbopendata_cache,wbopendata,_wbopendata_cache.ado,ado
+_wbopendata_cache_clear,wbopendata,_wbopendata_cache_clear.ado,ado
+_wbopendata_cache_info,wbopendata,_wbopendata_cache_info.ado,ado
+_wbopendata_check_version,wbopendata,_wbopendata_check_version.ado,ado
+_wbopendata_check_yaml,wbopendata,_wbopendata_check_yaml.ado,ado
+_wbopendata_download_yaml,wbopendata,_wbopendata_download_yaml.ado,ado
+_wbopendata_get_source_name,wbopendata,_wbopendata_get_source_name.ado,ado
+_wbopendata_get_topic_name,wbopendata,_wbopendata_get_topic_name.ado,ado
+_wbopendata_get_yaml_path,wbopendata,_wbopendata_get_yaml_path.ado,ado
+_wbopendata_info,wbopendata,_wbopendata_info.ado,ado
+_wbopendata_refresh_yaml,wbopendata,_wbopendata_refresh_yaml.ado,ado
+_wbopendata_search,wbopendata,_wbopendata_search.ado,ado
+_wbopendata_sources,wbopendata,_wbopendata_sources.ado,ado
+_wbopendata_sync,wbopendata,_wbopendata_sync.ado,ado
+_wbopendata_sync_preview,wbopendata,_wbopendata_sync_preview.ado,ado
+_wbopendata_topics,wbopendata,_wbopendata_topics.ado,ado
+_wbopendata_write_stats_history,wbopendata,_wbopendata_write_stats_history.ado,ado
+_website,wbopendata,_website.ado,ado
 _welcom_inst,welcom,_welcom_inst.ado,ado
 _welcom_vers,welcom,_welcom_vers.ado,ado
 _xmltoyaml_get_schema,unicefdata,_xmltoyaml_get_schema.ado,ado
@@ -683,6 +720,7 @@ _xtpcointegboot_engine,xtpunitcoint,_xtpcointegboot_engine.ado,ado
 _xtpcointegwe_engine,xtpunitcoint,_xtpcointegwe_engine.ado,ado
 _xtpkpss_engine,xtpunitcoint,_xtpkpss_engine.ado,ado
 _xtpqardl_delta,xtpqardl,_xtpqardl_delta.ado,ado
+_xtpqardl_ecm,xtpqardl,_xtpqardl_ecm.ado,ado
 _xtpqardl_estimate,xtpqardl,_xtpqardl_estimate.ado,ado
 _xtpqardl_load,xtpqardl,_xtpqardl_load.ado,ado
 _xtpqardl_mlib,xtpqardl,_xtpqardl_mlib.ado,ado
@@ -769,6 +807,7 @@ adjustrcspline_ex,postrcspline,adjustrcspline_ex.ado,ado
 admetan,admetan,admetan.ado,ado
 admetan_hlp_run,admetan,admetan_hlp_run.ado,ado
 admetani,admetan,admetani.ado,ado
+ado2,adoupdate2,ado2.ado,ado
 adodev,adodev,adodev.ado,ado
 adodown,adodown,adodown.ado,ado
 adoedit,adoedit,adoedit.ado,ado
@@ -780,6 +819,7 @@ adolist,adolist,adolist.ado,ado
 adorestore,adostore,adorestore.ado,ado
 adostore,adostore,adostore.ado,ado
 adotype,adotype,adotype.ado,ado
+adoupdate2,adoupdate2,adoupdate2.ado,ado
 adtest,adtest,adtest.ado,ado
 aedot,aedot,aedot.ado,ado
 aedots,aedot,aedots.ado,ado
@@ -1013,6 +1053,8 @@ baryhat,icalc,baryhat.ado,ado
 base,egenmore,_gbase.ado,ado
 basetable,basetable,basetable.ado,ado
 basetable_example_data,basetable,basetable_example_data.ado,ado
+basicstats,subsim_1,basicstats.ado,ado
+batcher,batcher,batcher.ado,ado
 batplot,batplot,batplot.ado,ado
 bayerhanck,bayerhanck,bayerhanck.ado,ado
 bayeshmc,bayeshmc,bayeshmc.ado,ado
@@ -1236,6 +1278,12 @@ c,fastcd,c.ado,ado
 c25tom5,timealloc,c25tom5.ado,ado
 c_ml_stata_cv,c_ml_stata_cv,c_ml_stata_cv.ado,ado
 c_ml_stata_default,c_ml_stata_cv,c_ml_stata_default.ado,ado
+cache,cache,cache.ado,ado
+cache_clean,cache,cache_clean.ado,ado
+cache_examples,cache,cache_examples.ado,ado
+cache_hash,cache,cache_hash.ado,ado
+cache_list,cache,cache_list.ado,ado
+cache_utils,cache,cache_utils.ado,ado
 cacheit,cacheit,cacheit.ado,ado
 cacheit_clean,cacheit,cacheit_clean.ado,ado
 cacheit_examples,cacheit,cacheit_examples.ado,ado
@@ -1578,6 +1626,8 @@ clippolygon,clipgeo,clippolygon.ado,ado
 clippolyline,clipgeo,clippolyline.ado,ado
 clock2min,timealloc,clock2min.ado,ado
 clocklabel,timealloc,clocklabel.ado,ado
+clocktomin,timeuse,clocktomin.ado,ado
+clocktomins,timeuse,clocktomins.ado,ado
 clogithet,clogithet,clogithet.ado,ado
 clore,subsim_1,clore.ado,ado
 clorenz,clorenz,clorenz.ado,ado
@@ -1629,6 +1679,7 @@ clustsens,clustsens,clustsens.ado,ado
 clv,clv,clv.ado,ado
 cm2in,cm2in,cm2in.ado,ado
 cmatch,cmatch,cmatch.ado,ado
+cmaxuse,cmaxuse,cmaxuse.ado,ado
 cmdchk,ice,cmdchk.ado,ado
 cmdmod,crossvalidate2,cmdmod.ado,ado
 cme,cme,cme.ado,ado
@@ -1798,6 +1849,7 @@ coranal,coranal,coranal.ado,ado
 corescore,corescore,corescore.ado,ado
 corr,egenmore,_gcorr.ado,ado
 corr2docx,corr2docx,corr2docx.ado,ado
+corr2tex,corr2tex,corr2tex.ado,ado
 corr_svy,corr_svy,corr_svy.ado,ado
 correlationchords,correlationchords,correlationchords.ado,ado
 corrsqm,sadi,corrsqm.ado,ado
@@ -2039,6 +2091,7 @@ datefrac,datefrac,datefrac.ado,ado
 datelist,datelist,datelist.ado,ado
 datesum,datesum,datesum.ado,ado
 datmat,datmat,datmat.ado,ado
+dave,dave,dave.ado,ado
 dayofyear,egenmore,_gdayofyear.ado,ado
 dbcrp,dbcrp,dbcrp.ado,ado
 dbetafit,betafit,dbetafit.ado,ado
@@ -2176,6 +2229,7 @@ discrepancy,discrepancy,discrepancy.ado,ado
 disjoint,disjoint,disjoint.ado,ado
 dissim,dissim,dissim.ado,ado
 dissim_index,dissim,dissim_index.ado,ado
+distable,subsim_1,distable.ado,ado
 distan,distan,distan.ado,ado
 distcomp,distcomp,distcomp.ado,ado
 distcomp2var,distcomp2var,distcomp2var.ado,ado
@@ -2228,7 +2282,7 @@ dolog8,dologx,dolog8.ado,ado
 dolog9,dologx,dolog9.ado,ado
 domdiag,domdiag,domdiag.ado,ado
 domin,domin,domin.ado,ado
-domme,domin,domme.ado,ado
+domme,domme,domme.ado,ado
 doparser,doparser,doparser.ado,ado
 doptimal,doptimal,doptimal.ado,ado
 doseresponse,doseresponse,doseresponse.ado,ado
@@ -2431,6 +2485,8 @@ env,genvars,_genv.ado,ado
 enwei,enwei,enwei.ado,ado
 enx,dfl,_genx.ado,ado
 eofplot,eofplot,eofplot.ado,ado
+eoframe_generate_plevel,geoplot,_geoframe_generate_plevel.ado,ado
+eoframe_spjoin,geoplot,_geoframe_spjoin.ado,ado
 eom,egenmore,_geom.ado,ado
 eomd,egenmore,_geomd.ado,ado
 eoplot_bar,geoplot,_geoplot_bar.ado,ado
@@ -2442,6 +2498,11 @@ eperiod,eperiod,eperiod.ado,ado
 epi_seir,epimodels,epi_seir.ado,ado
 epi_sir,epimodels,epi_sir.ado,ado
 epicheck,timealloc,epicheck.ado,ado
+epicheck1,timeuse,epicheck1.ado,ado
+epicheck2,timeuse,epicheck2.ado,ado
+epicheck3,timeuse,epicheck3.ado,ado
+epicheck4,timeuse,epicheck4.ado,ado
+epichecks,timeuse,epichecks.ado,ado
 epiconf,epiconf,epiconf.ado,ado
 epifix,timealloc,epifix.ado,ado
 epigen,timealloc,epigen.ado,ado
@@ -2830,6 +2891,7 @@ fod2str,fodstr,fod2str.ado,ado
 fodstr,fodstr,fodstr.ado,ado
 folders,fs,folders.ado,ado
 font_style,color_style,font_style.ado,ado
+foobar,foobar,foobar.ado,ado
 for211,for211,for211.ado,ado
 forest,forest,forest.ado,ado
 forestplot,metan,forestplot.ado,ado
@@ -2881,6 +2943,7 @@ frcount,frcount,frcount.ado,ado
 frcount_bs,frcount,frcount_bs.ado,ado
 fre,fre,fre.ado,ado
 freduse,freduse,freduse.ado,ado
+fredusex,fredusex,fredusex.ado,ado
 freeiv,freeiv,freeiv.ado,ado
 freeiv_engine,freeiv,freeiv_engine.ado,ado
 freeiv_examples,freeiv,freeiv_examples.ado,ado
@@ -2971,6 +3034,7 @@ gb2pred,gb2fit,gb2pred.ado,ado
 gb2reg,gb2reg,gb2reg.ado,ado
 gbgfit,gbgfit,gbgfit.ado,ado
 gbgfit_ll,gbgfit,gbgfit_ll.ado,ado
+gboxplot,gboxplot,gboxplot.ado,ado
 gby,gby,gby.ado,ado
 gcause,gcause,gcause.ado,ado
 gcause2,gcause,gcause2.ado,ado
@@ -3480,6 +3544,7 @@ hoishapley,hoishapley,hoishapley.ado,ado
 holdingrets,mvport,holdingrets.ado,ado
 holrein,mkdat,holrein.ado,ado
 holsti,holsti,holsti.ado,ado
+homogeni,midas,homogeni.ado,ado
 honestdid,honestdid,honestdid.ado,ado
 honestwork,honestdid,honestwork.ado,ado
 hotdeck,hotdeck,hotdeck.ado,ado
@@ -3609,6 +3674,7 @@ importsav,importsav,importsav.ado,ado
 imputeitems,imputeitems,imputeitems.ado,ado
 imputemok,imputemok,imputemok.ado,ado
 imputerasch,imputerasch,imputerasch.ado,ado
+imq0sub,subsim_1,imq0sub.ado,ado
 imqsub,subsim_1,imqsub.ado,ado
 imqsub_cob_doug,subsim_1,imqsub_cob_doug.ado,ado
 imrsub,subsim_1,imrsub.ado,ado
@@ -3675,11 +3741,21 @@ intershp,checkshp,intershp.ado,ado
 intext,intext,intext.ado,ado
 intgph,intgph,intgph.ado,ado
 intllf_gb2,gintreg,intllf_gb2.ado,ado
+intllf_gb2exp,gintreg,intllf_gb2exp.ado,ado
+intllf_gb2exp_group,gintreg,intllf_gb2exp_group.ado,ado
 intllf_ggamma,gintreg,intllf_ggamma.ado,ado
+intllf_ggsigma,gintreg,intllf_ggsigma.ado,ado
+intllf_ggsigma_group,gintreg,intllf_ggsigma_group.ado,ado
+intllf_lnormal,gintreg,intllf_lnormal.ado,ado
+intllf_lnormal_group,gintreg,intllf_lnormal_group.ado,ado
 intllf_lognormal,gintreg,intllf_lognormal.ado,ado
 intllf_normal,gintreg,intllf_normal.ado,ado
+intllf_normal_group,gintreg,intllf_normal_group.ado,ado
 intllf_sged,gintreg,intllf_sged.ado,ado
+intllf_sged_group,gintreg,intllf_sged_group.ado,ado
 intllf_sgt,gintreg,intllf_sgt.ado,ado
+intllf_sgt_condition,gintreg,intllf_sgt_condition.ado,ado
+intllf_sgt_condition_group,gintreg,intllf_sgt_condition_group.ado,ado
 intspec,icalc,intspec.ado,ado
 intterms,intterms,intterms.ado,ado
 invcdf,invcdf,invcdf.ado,ado
@@ -3940,6 +4016,8 @@ kmatch_svyr,kmatch,kmatch_svyr.ado,ado
 kmest,kmest,kmest.ado,ado
 kmest_p,kmest,kmest_p.ado,ado
 kmplot,kmplot,kmplot.ado,ado
+kmsenspec,kmsenspec,kmsenspec.ado,ado
+kmsenspec_p,kmsenspec,kmsenspec_p.ado,ado
 kmtest,kmtest,kmtest.ado,ado
 kmtest_cv,kmtest,kmtest_cv.ado,ado
 kmtest_power,kmtest,kmtest_power.ado,ado
@@ -4345,6 +4423,7 @@ lrasvar,lrasvar,lrasvar.ado,ado
 lrchg,lrchg,lrchg.ado,ado
 lrdrop1,lrdrop1,lrdrop1.ado,ado
 lrjtest,johans,lrjtest.ado,ado
+lrmat,midas,lrmat.ado,ado
 lrmatx,lrmatx,lrmatx.ado,ado
 lrmbounds,lrmbounds,lrmbounds.ado,ado
 lrplot,lrplot,lrplot.ado,ado
@@ -4693,6 +4772,14 @@ mi_impute_cmd_from_return,mi_impute_from,mi_impute_cmd_from_return.ado,ado
 mi_impute_cmd_glemb,glemb,mi_impute_cmd_glemb.ado,ado
 mi_impute_cmd_glemb_cleanup,glemb,mi_impute_cmd_glemb_cleanup.ado,ado
 mi_impute_cmd_glemb_parse,glemb,mi_impute_cmd_glemb_parse.ado,ado
+mi_impute_cmd_wlogit,mi_impute_wlogit,mi_impute_cmd_wlogit.ado,ado
+mi_impute_cmd_wlogit_init,mi_impute_wlogit,mi_impute_cmd_wlogit_init.ado,ado
+mi_impute_cmd_wlogit_parse,mi_impute_wlogit,mi_impute_cmd_wlogit_parse.ado,ado
+mi_impute_cmd_wlogit_return,mi_impute_wlogit,mi_impute_cmd_wlogit_return.ado,ado
+mi_impute_cmd_wmlogit,mi_impute_wlogit,mi_impute_cmd_wmlogit.ado,ado
+mi_impute_cmd_wmlogit_init,mi_impute_wlogit,mi_impute_cmd_wmlogit_init.ado,ado
+mi_impute_cmd_wmlogit_parse,mi_impute_wlogit,mi_impute_cmd_wmlogit_parse.ado,ado
+mi_impute_cmd_wmlogit_return,mi_impute_wlogit,mi_impute_cmd_wmlogit_return.ado,ado
 mi_impute_from_get,mi_impute_from,mi_impute_from_get.ado,ado
 mi_twoway,mi_twoway,mi_twoway.ado,ado
 miappend,mitools,miappend.ado,ado
@@ -4858,6 +4945,7 @@ mktex,mktex,mktex.ado,ado
 ml_benchmark,metalong,ml_benchmark.ado,ado
 ml_fragility,metalong,ml_fragility.ado,ado
 ml_meta,metalong,ml_meta.ado,ado
+ml_plot,metalong,ml_plot.ado,ado
 ml_sens,metalong,ml_sens.ado,ado
 ml_spike,spike,ml_spike.ado,ado
 ml_spline,metalong,ml_spline.ado,ado
@@ -4877,6 +4965,11 @@ mlmcenter,mlmoderator,mlmcenter.ado,ado
 mlmjn,mlmoderator,mlmjn.ado,ado
 mlmplot,mlmoderator,mlmplot.ado,ado
 mlmprobe,mlmoderator,mlmprobe.ado,ado
+mlmr2,mlmr2,mlmr2.ado,ado
+mlmr2_2L,mlmr2,mlmr2_2L.ado,ado
+mlmr2_3L,mlmr2,mlmr2_3L.ado,ado
+mlmr2_4L,mlmr2,mlmr2_4L.ado,ado
+mlmr2_5L,mlmr2,mlmr2_5L.ado,ado
 mlmsens,mlmoderator,mlmsens.ado,ado
 mlmsummary,mlmoderator,mlmsummary.ado,ado
 mlmvdecomp,mlmoderator,mlmvdecomp.ado,ado
@@ -5034,6 +5127,7 @@ multicoint,multicoint,multicoint.ado,ado
 multicoint_cv,multicoint,multicoint_cv.ado,ado
 multicoint_graph,multicoint,multicoint_graph.ado,ado
 multicoint_sim,multicoint,multicoint_sim.ado,ado
+multidensity,multidensity,multidensity.ado,ado
 multidot,multidot,multidot.ado,ado
 multif,multif,multif.ado,ado
 multiline,multiline,multiline.ado,ado
@@ -5068,6 +5162,7 @@ muxplot,muxplot,muxplot.ado,ado
 muxyplot,muxyplot,muxyplot.ado,ado
 mvardlurt,mvardlurt,mvardlurt.ado,ado
 mvardlurt_multivariate,mvardlurt_multivariate,mvardlurt_multivariate.ado,ado
+mvardlurt_multivariate_bootstrap,mvardlurt_multivariate,mvardlurt_multivariate_bootstrap.ado,ado
 mvardlurt_multivariate_diag,mvardlurt_multivariate,mvardlurt_multivariate_diag.ado,ado
 mvardlurt_multivariate_graph,mvardlurt_multivariate,mvardlurt_multivariate_graph.ado,ado
 mvardlurt_multivariate_p,mvardlurt_multivariate,mvardlurt_multivariate_p.ado,ado
@@ -5393,6 +5488,7 @@ onewplot,onewplot,onewplot.ado,ado
 opacity,opacity,opacity.ado,ado
 oparallel,oparallel,oparallel.ado,ado
 oparallel_ex,oparallel,oparallel_ex.ado,ado
+opchar_curtailed,singlearm,opchar_curtailed.ado,ado
 opchar_fixed,singlearm,opchar_fixed.ado,ado
 opchar_gs,singlearm,opchar_gs.ado,ado
 open,log2md,open.ado,ado
@@ -5401,6 +5497,8 @@ openall,openall,openall.ado,ado
 opencagegeo,opencagegeo,opencagegeo.ado,ado
 opencagegeoi,opencagegeo,opencagegeoi.ado,ado
 opendf,opendf,opendf.ado,ado
+opendf_csv2dta,opendf,opendf_csv2dta.ado,ado
+opendf_csv2zip,opendf,opendf_csv2zip.ado,ado
 opendf_docu,opendf,opendf_docu.ado,ado
 opendf_dta2csv,opendf,opendf_dta2csv.ado,ado
 opendf_installpython,opendf,opendf_installpython.ado,ado
@@ -5417,6 +5515,7 @@ opl_fb_cba,opl,opl_fb_cba.ado,ado
 opl_frontier_tb,opl,opl_frontier_tb.ado,ado
 opl_lc,opl,opl_lc.ado,ado
 opl_lc_c,opl,opl_lc_c.ado,ado
+opl_ma,opl,opl_ma.ado,ado
 opl_ma_fb,opl,opl_ma_fb.ado,ado
 opl_ma_vf,opl,opl_ma_vf.ado,ado
 opl_overlap,opl,opl_overlap.ado,ado
@@ -5596,6 +5695,7 @@ pctrim,pctrim,pctrim.ado,ado
 pdagum,qpfit,pdagum.ado,ado
 pdc,pdc,pdc.ado,ado
 pdd,pcdid,pdd.ado,ado
+pddami,midas,pddami.ado,ado
 pdfplot,pdfplot,pdfplot.ado,ado
 pdi,pdi,pdi.ado,ado
 pdi_outcome,pdi,pdi_outcome.ado,ado
@@ -5651,6 +5751,27 @@ pindex,pindex,pindex.ado,ado
 pinocchio,pinocchio,pinocchio.ado,ado
 pinvgamma,invgammafit,pinvgamma.ado,ado
 pinvgauss,invgaussfit,pinvgauss.ado,ado
+pip,pip,pip.ado,ado
+pip_cache,pip,pip_cache.ado,ado
+pip_cite,pip,pip_cite.ado,ado
+pip_cl,pip,pip_cl.ado,ado
+pip_clean,pip,pip_clean.ado,ado
+pip_cleanup,pip,pip_cleanup.ado,ado
+pip_drop,pip,pip_drop.ado,ado
+pip_drop_frames,pip,pip_drop_frames.ado,ado
+pip_examples,pip,pip_examples.ado,ado
+pip_find_src,pip,pip_find_src.ado,ado
+pip_gh,pip,pip_gh.ado,ado
+pip_info,pip,pip_info.ado,ado
+pip_install,pip,pip_install.ado,ado
+pip_new_session,pip,pip_new_session.ado,ado
+pip_povcalnet_format,pip,pip_povcalnet_format.ado,ado
+pip_query,pip,pip_query.ado,ado
+pip_set_server,pip,pip_set_server.ado,ado
+pip_ssc,pip,pip_ssc.ado,ado
+pip_tables,pip,pip_tables.ado,ado
+pip_update,pip,pip_update.ado,ado
+pip_versions,pip,pip_versions.ado,ado
 pipe,pipe,pipe.ado,ado
 pisacmd,pisatools,pisacmd.ado,ado
 pisadeco,pisatools,pisadeco.ado,ado
@@ -5758,6 +5879,7 @@ poverty_undertendency,pobrezaecu,poverty_undertendency.ado,ado
 povguide,povguide,povguide.ado,ado
 povguide2,povguide2,povguide2.ado,ado
 povimp,povimp,povimp.ado,ado
+povmap,sae,povmap.ado,ado
 povtime,povtime,povtime.ado,ado
 power_arima_itsa,power_arima_itsa,power_arima_itsa.ado,ado
 power_cmd_abk,power_abk,power_cmd_abk.ado,ado
@@ -5766,6 +5888,8 @@ power_cmd_concord,power_concord,power_cmd_concord.ado,ado
 power_cmd_concord_init,power_concord,power_cmd_concord_init.ado,ado
 power_cmd_icc,power_icc,power_cmd_icc.ado,ado
 power_cmd_icc_init,power_icc,power_cmd_icc_init.ado,ado
+power_cmd_itsa,power_itsa,power_cmd_itsa.ado,ado
+power_cmd_itsa_init,power_itsa,power_cmd_itsa_init.ado,ado
 power_cmd_kappa,power_kappa,power_cmd_kappa.ado,ado
 power_cmd_kappa_init,power_kappa,power_cmd_kappa_init.ado,ado
 power_cmd_loa,power_loa,power_cmd_loa.ado,ado
@@ -5796,6 +5920,7 @@ power_cmd_twosens,power_diagnostic,power_cmd_twosens.ado,ado
 power_cmd_twosens_init,power_diagnostic,power_cmd_twosens_init.ado,ado
 power_cmd_twospec,power_diagnostic,power_cmd_twospec.ado,ado
 power_cmd_twospec_init,power_diagnostic,power_cmd_twospec_init.ado,ado
+power_sim_itsa,power_itsa,power_sim_itsa.ado,ado
 power_sim_multi_itsa,power_itsa,power_sim_multi_itsa.ado,ado
 power_sim_single_itsa,power_itsa,power_sim_single_itsa.ado,ado
 power_step,power_step,power_step.ado,ado
@@ -5821,6 +5946,7 @@ ppplot,ppplot,ppplot.ado,ado
 ppschromy,ppschromy,ppschromy.ado,ado
 ppssampford,ppssampford,ppssampford.ado,ado
 pq,pq,pq.ado,ado
+pr1nx_lf,prob1nx,pr1nx_lf.ado,ado
 praisk,praisk,praisk.ado,ado
 praisk_p,itsa,praisk_p.ado,ado
 prcoint,prcoint,prcoint.ado,ado
@@ -5855,6 +5981,7 @@ primes,primes,primes.ado,ado
 printgph,printgph,printgph.ado,ado
 prismscore,prismscore,prismscore.ado,ado
 prnt_cx,coldiag2,prnt_cx.ado,ado
+prob1nx,prob1nx,prob1nx.ado,ado
 probat,xtpdyn,probat.ado,ado
 probcalc,probcalc,probcalc.ado,ado
 probexog,probexog-tobexog,probexog.ado,ado
@@ -5972,6 +6099,7 @@ pwmc_version,pwmc,pwmc_version.ado,ado
 pwmci,pwmc,pwmci.ado,ado
 pwploti,pwploti,pwploti.ado,ado
 pyconvertu,pyconvertu,pyconvertu.ado,ado
+pyex,pyex,pyex.ado,ado
 pylearn,c_ml_stata_cv,pylearn.ado,ado
 pyramid_chart,pyramid_chart,pyramid_chart.ado,ado
 pystacked,pystacked,pystacked.ado,ado
@@ -6233,6 +6361,8 @@ rdatasets,rdatasets,rdatasets.ado,ado
 rdbalance,rdbalance,rdbalance.ado,ado
 rdbwdensity,rddensity,rdbwdensity.ado,ado
 rdbwselect,rdrobust,rdbwselect.ado,ado
+rdbwselect_2014,rdrobust,rdbwselect_2014.ado,ado
+rdbwselect_2014_kconst,rdrobust,rdbwselect_2014_kconst.ado,ado
 rdci,rdci,rdci.ado,ado
 rdcii,rdci,rdcii.ado,ado
 rdcont,rdcont,rdcont.ado,ado
@@ -6328,7 +6458,13 @@ reghdfe5_parse,reghdfe,reghdfe5_parse.ado,ado
 reghdfe_estat,reghdfe,reghdfe_estat.ado,ado
 reghdfe_footnote,reghdfe,reghdfe_footnote.ado,ado
 reghdfe_header,reghdfe,reghdfe_header.ado,ado
+reghdfe_old,reghdfe,reghdfe_old.ado,ado
+reghdfe_old_estat,reghdfe,reghdfe_old_estat.ado,ado
+reghdfe_old_footnote,reghdfe,reghdfe_old_footnote.ado,ado
+reghdfe_old_p,reghdfe,reghdfe_old_p.ado,ado
 reghdfe_p,reghdfe,reghdfe_p.ado,ado
+reghdfe_parse,reghdfe,reghdfe_parse.ado,ado
+reghdfe_store_alphas,reghdfe,reghdfe_store_alphas.ado,ado
 reghdfejl,reghdfejl,reghdfejl.ado,ado
 reghdfejl_estat,reghdfejl,reghdfejl_estat.ado,ado
 reghdfejl_load,reghdfejl,reghdfejl_load.ado,ado
@@ -6788,7 +6924,9 @@ seqlogit_uh_lf,seqlogit,seqlogit_uh_lf.ado,ado
 seqlogitdecomp,seqlogit,seqlogitdecomp.ado,ado
 seqlogitdecomp10,seqlogit,seqlogitdecomp10.ado,ado
 seqsens,seqlogit,seqsens.ado,ado
+sequence,sequence,sequence.ado,ado
 sequences,sequences,sequences.ado,ado
+sequencex,timeuse,sequencex.ado,ado
 ses_forecast,ses_forecast,ses_forecast.ado,ado
 setdtapaper,dtapaper,setdtapaper.ado,ado
 setpoisson,setpoisson,setpoisson.ado,ado
@@ -7577,6 +7715,7 @@ strcs_pred,strcs,strcs_pred.ado,ado
 strdate,strdate,strdate.ado,ado
 strdist,strdist,strdist.ado,ado
 streamplot,streamplot,streamplot.ado,ado
+streamplot_crash,streamplot,streamplot_crash.ado,ado
 stregmat,matrixtools,stregmat.ado,ado
 strgen,strgen,strgen.ado,ado
 strgroup,strgroup,strgroup.ado,ado
@@ -7606,6 +7745,7 @@ stvarag,stvarag,stvarag.ado,ado
 stvarcom,stvarcom,stvarcom.ado,ado
 styletextab,styletextab,styletextab.ado,ado
 subinfile,subinfile,subinfile.ado,ado
+subjob11,subsim_2,subjob11.ado,ado
 subjob21,subsim_2,subjob21.ado,ado
 subjob22,subsim_2,subjob22.ado,ado
 subjob23,subsim_2,subjob23.ado,ado
@@ -7860,6 +8000,7 @@ tabsplit6,tab_chi,tabsplit6.ado,ado
 tabstat2excel,tabstat2excel,tabstat2excel.ado,ado
 tabstatmat,tabstatmat,tabstatmat.ado,ado
 tabstatout,tabout,tabstatout.ado,ado
+tabtit,subsim_2,tabtit.ado,ado
 tabtools,tabtools,tabtools.ado,ado
 tabtools_tips,tabtools,tabtools_tips.ado,ado
 tabxml,tabxml,tabxml.ado,ado
@@ -7925,6 +8066,7 @@ telegram,telegram,telegram.ado,ado
 tenspiders,tenspiders,tenspiders.ado,ado
 ternary,ternary,ternary.ado,ado
 tesensitivity,tesensitivity,tesensitivity.ado,ado
+test1,test1,test1.ado,ado
 test_python_plugin,python,test_python_plugin.ado,ado
 test_sandwich,reg_sandwich,test_sandwich.ado,ado
 testex,testex,testex.ado,ado
@@ -8035,6 +8177,8 @@ timeit,timeit,timeit.ado,ado
 timeleft,timeleft,timeleft.ado,ado
 timestamp,timestamp,timestamp.ado,ado
 timestamp_zones,timestamp,timestamp_zones.ado,ado
+timeuse,timeuse,timeuse.ado,ado
+timeusex,timeuse,timeusex.ado,ado
 titebeta,titebeta,titebeta.ado,ado
 title,title,title.ado,ado
 tiva2023,tiva2023,tiva2023.ado,ado
@@ -8079,6 +8223,7 @@ tobithetm_lfh,tobithetm,tobithetm_lfh.ado,ado
 tobithetm_lfn,tobithetm,tobithetm_lfn.ado,ado
 tobitiv,tobitiv,tobitiv.ado,ado
 toc,tictoc,toc.ado,ado
+tocalendar,timeuse,tocalendar.ado,ado
 tod,egenmore,_gtod.ado,ado
 todate,todate,todate.ado,ado
 todate7,todate,todate7.ado,ado
@@ -8345,6 +8490,7 @@ unemp,unemp,unemp.ado,ado
 unicefdata,unicefdata,unicefdata.ado,ado
 unicefdata_examples,unicefdata,unicefdata_examples.ado,ado
 unicefdata_refresh_all,unicefdata,unicefdata_refresh_all.ado,ado
+unicefdata_setup,unicefdata,unicefdata_setup.ado,ado
 unicefdata_sync,unicefdata,unicefdata_sync.ado,ado
 unicefdata_xmltoyaml,unicefdata,unicefdata_xmltoyaml.ado,ado
 unicefdata_xmltoyaml_py,unicefdata,unicefdata_xmltoyaml_py.ado,ado
@@ -8382,6 +8528,7 @@ usel,lowyseattlea,usel.ado,ado
 uselab,uselab,uselab.ado,ado
 useold,useold,useold.ado,ado
 usepackage,usepackage,usepackage.ado,ado
+userprog,userprog,userprog.ado,ado
 usesas,usesas,usesas.ado,ado
 usesasdel,saswrapper,usesasdel.ado,ado
 usesome,usesome,usesome.ado,ado
@@ -8526,6 +8673,7 @@ venndiag,venndiag,venndiag.ado,ado
 veracrypt,veracrypt,veracrypt.ado,ado
 vgettoken,vtokenize,vgettoken.ado,ado
 viewresults,viewresults,viewresults.ado,ado
+vif2,cmaxuse,vif2.ado,ado
 vincenty,vincenty,vincenty.ado,ado
 violin,violin,violin.ado,ado
 violinplot,violinplot,violinplot.ado,ado
@@ -8702,10 +8850,35 @@ wwwhelp,wwwhelp,wwwhelp.ado,ado
 wxprep,wxsum,wxprep.ado,ado
 wxsum,wxsum,wxsum.ado,ado
 wyoung,wyoung,wyoung.ado,ado
+x11as,x11as,x11as.ado,ado
 xauto,xauto,xauto.ado,ado
 xb2pi,xb2pi,xb2pi.ado,ado
 xbalance,xbalance,xbalance.ado,ado
 xbrcspline,xbrcspline,xbrcspline.ado,ado
+xclock0,timeuse,xclock0.ado,ado
+xclock1,timeuse,xclock1.ado,ado
+xclock10,timeuse,xclock10.ado,ado
+xclock11,timeuse,xclock11.ado,ado
+xclock12,timeuse,xclock12.ado,ado
+xclock13,timeuse,xclock13.ado,ado
+xclock14,timeuse,xclock14.ado,ado
+xclock15,timeuse,xclock15.ado,ado
+xclock16,timeuse,xclock16.ado,ado
+xclock17,timeuse,xclock17.ado,ado
+xclock18,timeuse,xclock18.ado,ado
+xclock19,timeuse,xclock19.ado,ado
+xclock2,timeuse,xclock2.ado,ado
+xclock20,timeuse,xclock20.ado,ado
+xclock21,timeuse,xclock21.ado,ado
+xclock22,timeuse,xclock22.ado,ado
+xclock23,timeuse,xclock23.ado,ado
+xclock3,timeuse,xclock3.ado,ado
+xclock4,timeuse,xclock4.ado,ado
+xclock5,timeuse,xclock5.ado,ado
+xclock6,timeuse,xclock6.ado,ado
+xclock7,timeuse,xclock7.ado,ado
+xclock8,timeuse,xclock8.ado,ado
+xclock9,timeuse,xclock9.ado,ado
 xcollapse,xcollapse,xcollapse.ado,ado
 xcontract,xcontract,xcontract.ado,ado
 xcorplot,xcorplot,xcorplot.ado,ado
@@ -8783,6 +8956,7 @@ xtbreak_auxiliary,xtbreak,xtbreak_auxiliary.ado,ado
 xtbreak_estat,xtbreak,xtbreak_estat.ado,ado
 xtbreak_estimate,xtbreak,xtbreak_estimate.ado,ado
 xtbreak_test,xtbreak,xtbreak_test.ado,ado
+xtbreak_tests,xtbreak,xtbreak_tests.ado,ado
 xtbreakcoint,xtbreakcoint,xtbreakcoint.ado,ado
 xtbreaklm,xtpdroot,xtbreaklm.ado,ado
 xtbreakmodel,xtbreakmodel,xtbreakmodel.ado,ado
@@ -8910,6 +9084,7 @@ xtivreg2_p,xtivreg2,xtivreg2_p.ado,ado
 xtkpybreak,xtkpybreak,xtkpybreak.ado,ado
 xtkr,xtkr,xtkr.ado,ado
 xtkumblienhard,xtkumblienhard,xtkumblienhard.ado,ado
+xtlhazard,xtlhazard,xtlhazard.ado,ado
 xtlmbreak,xtlmbreak,xtlmbreak.ado,ado
 xtloglin,xtloglin,xtloglin.ado,ado
 xtlongestim,xtlongestim,xtlongestim.ado,ado
@@ -9044,6 +9219,7 @@ xtsum2docx,xtsum2docx,xtsum2docx.ado,ado
 xtsur,xtsur,xtsur.ado,ado
 xtsurmg,xtsurmg,xtsurmg.ado,ado
 xttacce,xttacce,xttacce.ado,ado
+xtteifeci,xtteifeci,xtteifeci.ado,ado
 xttest2,xttest2,xttest2.ado,ado
 xttest3,xttest3,xttest3.ado,ado
 xttest4,xttest4,xttest4.ado,ado
@@ -9053,6 +9229,7 @@ xttvpivmg,xttvpivmg,xttvpivmg.ado,ado
 xtusreg,xtusreg,xtusreg.ado,ado
 xtutest,xtutest,xtutest.ado,ado
 xtutest_graph,xtutest,xtutest_graph.ado,ado
+xtvar,xtvar,xtvar.ado,ado
 xtvar2,xtvar2,xtvar2.ado,ado
 xtvc,xtvc,xtvc.ado,ado
 xtvfreg,xtvfreg,xtvfreg.ado,ado
@@ -9090,12 +9267,17 @@ zicen3_lf,zicen,zicen3_lf.ado,ado
 zicen3_p,zicen,zicen3_p.ado,ado
 zicenec,zicen,zicenec.ado,ado
 zicenlc,zicen,zicenlc.ado,ado
+zinb,zinb,zinb.ado,ado
+zinb_ll,zinb,zinb_ll.ado,ado
+zip,zip,zip.ado,ado
+zip_ll,zip,zip_ll.ado,ado
 zipappend,zipsave,zipappend.ado,ado
 zipf,zipffit,zipf.ado,ado
 zipf_mandelbrot,zipffit,zipf_mandelbrot.ado,ado
 zipffit,zipffit,zipffit.ado,ado
 zipmerge,zipsave,zipmerge.ado,ado
 zippkg,zippkg,zippkg.ado,ado
+zippred,zinb,zippred.ado,ado
 zipsave,zipsave,zipsave.ado,ado
 zipsaveold,zipsave,zipsaveold.ado,ado
 zipuse,zipsave,zipuse.ado,ado
