@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Build the keyword-to-package crosswalk from the .pkg files of an SSC snapshot.
+"""Build the keyword-to-package crosswalk from a clone of the SSC archive.
 
-The input is stata-pkg-files.zip from a date-stamped tag of
+The input is a shallow clone of a date-stamped tag of
 https://github.com/ssc-ng/archive; see auxiliary/README.md. The output is a CSV
 with the columns of p_keyword_pkg_xwalk.dta (keyword, package, filename,
 extension), which auxiliary/convert_keyword_crosswalk.do turns into that file.
@@ -12,11 +12,13 @@ Standard library only.
 import argparse
 import collections
 import csv
+import os
 import posixpath
 import re
 import sys
-import zipfile
 
+# Where the packages are, within a clone of the archive.
+PACKAGES = "fmwww.bc.edu/repec/bocode"
 # Only these files define something a do-file can name.
 EXTENSIONS = ("ado", "scheme")
 # A word the scan could ever see. Rules out, for example, "WIN64 fren.ado".
@@ -43,31 +45,42 @@ def keyword_for(filename):
 
 
 def files_in_pkg(text):
-    """Return the base names on the f and F lines of a .pkg file."""
-    names = []
+    """Return the paths on the f and F lines of a .pkg file, relative to that file."""
+    paths = []
     for line in text.splitlines():
         line = line.strip()
         if len(line) > 2 and line[0] in "fF" and line[1].isspace():
-            names.append(posixpath.basename(line[2:].strip().replace("\\", "/")))
-    return names
+            paths.append(line[2:].strip().replace("\\", "/"))
+    return paths
 
 
-def read_candidates(zip_path):
-    """Return every (keyword, package, filename, extension) in the archive."""
+def read_candidates(archive):
+    """Return the rows for every keyword in a clone, and the listed files that are missing.
+
+    The rows are (keyword, package, filename, extension). A .pkg file can list a file
+    that the archive does not have. That file cannot be installed, so it gives no keyword.
+    """
     candidates = set()
-    with zipfile.ZipFile(zip_path) as archive:
-        for name in archive.namelist():
+    missing = set()
+    top = os.path.join(archive, *PACKAGES.split("/"))
+    for folder, _, names in os.walk(top):
+        for name in names:
             if not name.endswith(".pkg"):
                 continue
-            package = posixpath.basename(name)[: -len(".pkg")]
             # .pkg files have no declared encoding; the f lines are ASCII in practice
-            text = archive.read(name).decode("latin-1")
-            for filename in files_in_pkg(text):
+            with open(os.path.join(folder, name), encoding="latin-1") as handle:
+                text = handle.read()
+            package = name[: -len(".pkg")]
+            for path in files_in_pkg(text):
+                filename = posixpath.basename(path)
                 found = keyword_for(filename)
-                if found:
-                    keyword, extension = found
-                    candidates.add((keyword, package, filename, extension))
-    return candidates
+                if not found:
+                    continue
+                if os.path.isfile(os.path.join(folder, *path.split("/"))):
+                    candidates.add((found[0], package, filename, found[1]))
+                else:
+                    missing.add((package, path))
+    return candidates, missing
 
 
 def select(candidates):
@@ -90,11 +103,13 @@ def select(candidates):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("pkg_zip", help="stata-pkg-files.zip from a snapshot of ssc-ng/archive")
+    parser.add_argument("archive", help="shallow clone of a snapshot of ssc-ng/archive")
     parser.add_argument("output", help="CSV file to write")
     args = parser.parse_args(argv)
 
-    candidates = read_candidates(args.pkg_zip)
+    candidates, missing = read_candidates(args.archive)
+    if not candidates:
+        parser.error(f"no packages found under {args.archive}/{PACKAGES}")
     rows = select(candidates)
     with open(args.output, "w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle, lineterminator="\n")
@@ -104,9 +119,12 @@ def main(argv=None):
     shared = len(candidates) - len(rows)
     print(
         f"{len(rows)} keywords from {len({row[1] for row in rows})} packages; "
-        f"{shared} candidate rows set aside because another package has the keyword",
+        f"{shared} candidate rows set aside because another package has the keyword; "
+        f"{len(missing)} listed files are not in the archive:",
         file=sys.stderr,
     )
+    for package, path in sorted(missing):
+        print(f"  {package}: {path}", file=sys.stderr)
     return 0
 
 

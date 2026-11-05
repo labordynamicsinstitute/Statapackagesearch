@@ -1,7 +1,6 @@
 import os
 import tempfile
 import unittest
-import zipfile
 
 from tools.build_keyword_crosswalk import files_in_pkg, keyword_for, read_candidates, select
 
@@ -34,10 +33,10 @@ class KeywordFor(unittest.TestCase):
 class FilesInPkg(unittest.TestCase):
     def test_reads_f_lines_only(self):
         text = "d foo.ado is described here\nf ../r/reghdfe.ado\nF estfe.ado\ne\n"
-        self.assertEqual(files_in_pkg(text), ["reghdfe.ado", "estfe.ado"])
+        self.assertEqual(files_in_pkg(text), ["../r/reghdfe.ado", "estfe.ado"])
 
     def test_windows_separator(self):
-        self.assertEqual(files_in_pkg("f ..\\r\\reghdfe.ado\n"), ["reghdfe.ado"])
+        self.assertEqual(files_in_pkg("f ..\\r\\reghdfe.ado\n"), ["../r/reghdfe.ado"])
 
 
 class Select(unittest.TestCase):
@@ -62,13 +61,47 @@ class Select(unittest.TestCase):
 
 
 class ReadCandidates(unittest.TestCase):
-    def test_reads_a_snapshot_zip(self):
-        with tempfile.TemporaryDirectory() as folder:
-            path = os.path.join(folder, "pkg.zip")
-            with zipfile.ZipFile(path, "w") as archive:
-                archive.writestr("mirror/fmwww.bc.edu/repec/bocode/r/reghdfe.pkg", "f reghdfe.ado\nf reghdfe.sthlp\n")
-                archive.writestr("mirror/fmwww.bc.edu/repec/bocode/r/readme.txt", "f ignored.ado\n")
-            self.assertEqual(read_candidates(path), {("reghdfe", "reghdfe", "reghdfe.ado", "ado")})
+    def setUp(self):
+        folder = tempfile.TemporaryDirectory()
+        self.addCleanup(folder.cleanup)
+        self.archive = folder.name
+        self.top = os.path.join(self.archive, "fmwww.bc.edu", "repec", "bocode")
+
+    def write(self, path, text=""):
+        path = os.path.join(self.top, *path.split("/"))
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w") as handle:
+            handle.write(text)
+
+    def test_reads_a_clone(self):
+        self.write("r/reghdfe.pkg", "f reghdfe.ado\nf reghdfe.sthlp\nf ../e/estfe.ado\n")
+        self.write("r/reghdfe.ado")
+        self.write("r/reghdfe.sthlp")
+        self.write("e/estfe.ado")
+        candidates, missing = read_candidates(self.archive)
+        self.assertEqual(
+            candidates,
+            {("reghdfe", "reghdfe", "reghdfe.ado", "ado"), ("estfe", "reghdfe", "estfe.ado", "ado")},
+        )
+        self.assertEqual(missing, set())
+
+    def test_a_file_not_in_the_archive_gives_no_keyword(self):
+        self.write("g/_grminmax.pkg", "f _grmax.ado\nf _grminmax.ado\n")
+        self.write("g/_grminmax.ado")
+        candidates, missing = read_candidates(self.archive)
+        self.assertEqual(candidates, {("rminmax", "_grminmax", "_grminmax.ado", "ado")})
+        self.assertEqual(missing, {("_grminmax", "_grmax.ado")})
+
+    def test_a_file_in_another_folder_does_not_count(self):
+        self.write("s/subsim.pkg", "f ../a/basicstats.ado\n")
+        self.write("b/basicstats.ado")
+        candidates, missing = read_candidates(self.archive)
+        self.assertEqual(candidates, set())
+        self.assertEqual(missing, {("subsim", "../a/basicstats.ado")})
+
+    def test_an_ado_file_in_no_package_gives_no_keyword(self):
+        self.write("o/orphan.ado")
+        self.assertEqual(read_candidates(self.archive), (set(), set()))
 
 
 if __name__ == "__main__":
