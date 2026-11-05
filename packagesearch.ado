@@ -235,6 +235,10 @@ qui {
 	    qui replace txtstring = subinstr(txtstring, "."," ",.)
 	    qui replace txtstring = subinstr(txtstring, "<"," ",.)
 	    qui replace txtstring = subinstr(txtstring, ">"," ",.)
+	    qui replace txtstring = subinstr(txtstring, ":"," ",.)
+	    qui replace txtstring = subinstr(txtstring, ";"," ",.)
+	    qui replace txtstring = subinstr(txtstring, `"""'," ",.)
+	    qui replace txtstring = subinstr(txtstring, "["," ",.)
 	    
 	    *omit the end of lines of code (usually don't contain packages anyways)
 	    qui replace txtstring = ustrleft(txtstring, 72)
@@ -369,8 +373,14 @@ if `debug' == 1 {
 	restore
 }
 // desc using `packagelist'
-qui merge m:1 packagename using `packagelist', keep(match) nogen
-qui sum rank
+* A keyword stays in the crosswalk after its package has left SSC, or if the package
+* has no downloads this month, so such a package is not on the list. Report it, as
+* unlikely: it has no rank, and the highest likelihood of being a false positive.
+* A domain() list is meant to restrict the search, so only its packages are reported.
+local keepmerge = cond("`domain'" == "", "match master", "match")
+qui merge m:1 packagename using `packagelist', keep(`keepmerge') nogen
+qui replace probFalsePos = 1 if missing(rank)
+qui count
 local success = `r(N)'
 di as text "::: Number of matched packages: `success'"
 
@@ -442,7 +452,7 @@ restore
 **************************************************************************
 preserve
 
-qui sum rank
+qui count
 
 // dis "Found `r(N)' rows."
 
@@ -490,10 +500,12 @@ if `r(N)' > 0 {
 			if !missing("foundpackages") {
 				foreach pkg in `foundpackages' {
 					n dis "Installing `pkg'"
-					ssc install `pkg', replace
+					* a package that has left SSC cannot be installed from there
+					cap n ssc install `pkg', replace
+					if _rc n di as text "Could not install `pkg' from SSC (error r(" _rc "))."
 				}
 			} 
-			n di "All packages found during the scan successfully installed"	
+			n di "Finished installing the packages found during the scan"	
 		}
 	}
 }

@@ -1,0 +1,8 @@
+coefplot
+ivreg2
+outreg2
+psmatch2
+rdrobust
+reghdfe
+unique
+winsor2
