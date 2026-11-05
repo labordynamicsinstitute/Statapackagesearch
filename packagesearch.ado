@@ -235,6 +235,10 @@ qui {
 	    qui replace txtstring = subinstr(txtstring, "."," ",.)
 	    qui replace txtstring = subinstr(txtstring, "<"," ",.)
 	    qui replace txtstring = subinstr(txtstring, ">"," ",.)
+	    qui replace txtstring = subinstr(txtstring, ":"," ",.)
+	    qui replace txtstring = subinstr(txtstring, ";"," ",.)
+	    qui replace txtstring = subinstr(txtstring, `"""'," ",.)
+	    qui replace txtstring = subinstr(txtstring, "["," ",.)
 	    
 	    *omit the end of lines of code (usually don't contain packages anyways)
 	    qui replace txtstring = ustrleft(txtstring, 72)
