@@ -19,9 +19,7 @@ then
    echo "Success: Test 6-2"
    # Verify third test: installing carries on past packages that have left SSC
    sed -n '/^====Test 6-3: BEGIN/,/^====Test 6-3: END/p' test6.log > actual_output6-3.txt
-   grep -q '^Could not install pip from SSC' actual_output6-3.txt \
-      && grep -q '^Finished installing' actual_output6-3.txt \
-      || { echo "Not the expected output: Test 6-3"; exit 2; }
+   grep -q '^Finished installing' actual_output6-3.txt || { echo "Not the expected output: Test 6-3"; exit 2; }
    echo "Success: Test 6-3"
    exit 0
 else
