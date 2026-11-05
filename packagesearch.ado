@@ -190,6 +190,10 @@ qui {
 	
 	qui count
 	local total_files = `r(N)'
+	if `total_files' == 0 {
+		n di as text "No Stata .do files found in this directory. Please specify another location."
+		exit
+	}
 	forvalues i=1/`total_files' {
 		local file_`i' = file_path[`i']
 	}
@@ -295,7 +299,15 @@ qui {
 	di as text "Step 4: Match parsed files to package list and show candidate packages"
 
 	*Collapses unique words into 1 observation
-	collapse (sum) w_* 
+	* with no w_* variables, the .do files had no words to match (only comments, say)
+	cap collapse (sum) w_* 
+	if _rc == 111 {
+		di as text "No matched packages found"
+		exit
+	}
+	else if _rc {
+		error _rc
+	}
 
 	* create a new var and count to capture frequency
 	qui gen word = ""
@@ -368,8 +380,6 @@ di as text "::: Number of matched packages: `success'"
  // If no matched packages found, output message and exit
 if `success' == 0 {
 	di as text "No matched packages found"
-	
-	qui drop success success1 success2
 	exit
 }
 
@@ -388,10 +398,10 @@ else {
 	di as text "Dropping common false positives (`commonFPs')"
 	foreach word in `commonFPs' {
 		qui drop if match == "`word'" 
-		*replace success = success - *number of observations deleted in the for loop above*
 	}
 
-	if `success' == 0 {
+	qui count
+	if `r(N)' == 0 {
 		di as text "All matched packages found were false positives"
 		exit
 	}
