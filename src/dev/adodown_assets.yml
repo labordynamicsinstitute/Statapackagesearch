@@ -1,0 +1,44 @@
+# Defines file mappings for the adodownr build process.
+# Files at `from` (relative to repo root) are copied to `to` during the CI build.
+# This allows the Stata package source to remain in its conventional locations
+# while satisfying the directory structure expected by adodownr::build_site().
+# All paths are relative to the repository root.
+
+# Files copied to src/ to satisfy adodownr's expected directory structure.
+copy:
+  - from: packagesearch.pkg
+    to: src/packagesearch.pkg
+  - from: stata.toc
+    to: src/stata.toc
+  - from: packagesearch.ado
+    to: src/ado/packagesearch.ado
+  - from: packagesearch.sthlp
+    to: src/sthlp/packagesearch.sthlp
+  - from: p_whatshot.ado
+    to: src/ado/p_whatshot.ado
+  - from: p_stopwords.txt
+    to: src/ado/p_stopwords.txt
+  - from: p_stats_econ.dta
+    to: src/ado/p_stats_econ.dta
+  - from: p_keyword_pkg_xwalk.dta
+    to: src/ado/p_keyword_pkg_xwalk.dta
+
+# Files copied to docs/ after the site build so that
+# `net install packagesearch, from("<GitHub Pages URL>")` works.
+install:
+  - from: packagesearch.pkg
+    to: docs/packagesearch.pkg
+  - from: stata.toc
+    to: docs/stata.toc
+  - from: packagesearch.ado
+    to: docs/packagesearch.ado
+  - from: packagesearch.sthlp
+    to: docs/packagesearch.sthlp
+  - from: p_whatshot.ado
+    to: docs/p_whatshot.ado
+  - from: p_stopwords.txt
+    to: docs/p_stopwords.txt
+  - from: p_stats_econ.dta
+    to: docs/p_stats_econ.dta
+  - from: p_keyword_pkg_xwalk.dta
+    to: docs/p_keyword_pkg_xwalk.dta
